@@ -26,6 +26,11 @@ public class StomachController : MonoBehaviour
 
 	public void Initialize(StomachData stomachData)
 	{
+		InputManager.Instance.MoveUp += () => Moved(MoveDirection.Up);
+		InputManager.Instance.MoveDown += () => Moved(MoveDirection.Down);
+		InputManager.Instance.MoveLeft += () => Moved(MoveDirection.Left);
+		InputManager.Instance.MoveRight += () => Moved(MoveDirection.Right);
+		
 		RecognizeNeighbours(ROW_SIZE, COLUMN_SIZE);
 		
 		for (int i = 0; i < stomachData.StomachSlots.Count; i++)
@@ -34,15 +39,20 @@ public class StomachController : MonoBehaviour
 		}
 	}
 
+	private void Moved(MoveDirection direciton)
+	{
+		
+	}
+
 	public void RecognizeNeighbours(int rowSize, int columnSize)
 	{
-		foreach (var slot in _stomachSlots)
+		foreach (StomachSlotController slot in _stomachSlots)
 		{
 			int id = slot.Id;
 			int row = (id - 1) / columnSize;
 			int col = (id - 1) % columnSize;
 
-			List<StomachSlotController> neighbours = new List<StomachSlotController>();
+			List<StomachSlotController> neighbours = new();
 
 			// Check above
 			if (row > 0)

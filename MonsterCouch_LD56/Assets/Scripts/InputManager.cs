@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -45,7 +44,7 @@ public class InputManager : MonoBehaviour
 			actions = new Dictionary<string, Action>
 			{
 				{"MoveUp", () => MoveUp?.Invoke()},
-				{"MoveDown", () => MoveDown?.Invoke()},
+				//{"MoveDown", () => MoveDown?.Invoke()},
 				{"MoveLeft", () => MoveLeft?.Invoke()},
 				{"MoveRight", () => MoveRight?.Invoke()},
 				{"Jump", () => Debug.Log("Jump")},
