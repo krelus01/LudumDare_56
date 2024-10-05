@@ -71,8 +71,21 @@ public class RoomController : MonoBehaviour
 				}
 				break;
 		}
-		
-		return _roomRows[_playerCurrentRow].GetRoomPoint(_playerCurrentPointInRow);
+
+		RoomGridPoint roomPoint = _roomRows[_playerCurrentRow].GetRoomPoint(_playerCurrentPointInRow);
+
+		ConsumeTinyCreature(roomPoint);
+
+		return roomPoint.GetRoomPointTransform();
+	}
+
+	private void ConsumeTinyCreature(RoomGridPoint roomPoint)
+	{
+		if (roomPoint.RoomPointData.RoomPointType != TinyCreatureType.Empty && roomPoint.RoomPointData.RoomPointType != TinyCreatureType.Wall)
+		{
+			StomachController.Instance.AddTinyCreature(roomPoint.RoomPointData.RoomPointType);
+			roomPoint.Consume();
+		}
 	}
 
 	private Transform PlacePlayer(int row, int pointInRow)

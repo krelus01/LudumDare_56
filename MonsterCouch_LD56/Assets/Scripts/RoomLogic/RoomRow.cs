@@ -13,19 +13,13 @@ public class RoomRow : MonoBehaviour
 	{
 		foreach (RoomGridPoint roomPoint in GetComponentsInChildren<RoomGridPoint>())
 		{
-			roomPoint.SetRoomPoint(null);
 			_roomGridPoints.Add(roomPoint.Id, roomPoint);
 		}
 	}
 
-	public Transform GetRoomPoint(int pointInRow)
+	public RoomGridPoint GetRoomPoint(int pointInRow)
 	{
-		return _roomGridPoints[pointInRow].transform;
-	}
-
-	public int GetRoomPointsCount()
-	{
-		return _roomGridPoints.Count + 1;
+		return _roomGridPoints[pointInRow];
 	}
 
 	public void Initialize(RoomRowData roomRowData)
