@@ -4,6 +4,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Create RoomRowData", fileName = "RoomRowData", order = 0)]
 public class RoomRowData : ScriptableObject
 {
-	public int Id;
-	public List<RoomGridPointData> RoomGridPoints;
+	public List<RoomPointData> RoomGridPoints;
 }

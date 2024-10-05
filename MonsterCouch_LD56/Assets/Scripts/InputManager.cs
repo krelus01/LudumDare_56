@@ -70,7 +70,6 @@ public class InputManager : MonoBehaviour
 		
 		if (actions.TryGetValue(context.action.name, out Action action))
 		{
-			Debug.Log(context.action.name);
 			action.Invoke();
 		}
 	}

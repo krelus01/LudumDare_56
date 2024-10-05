@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2b77f37f7741a28dbd457df139752d, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  PlayerStartingRow: 3
+  PlayerStartingRow: 2
   PlayerStartingRowPoint: 3
-  RoomRows: []
+  RoomRows:
+  - {fileID: 0}

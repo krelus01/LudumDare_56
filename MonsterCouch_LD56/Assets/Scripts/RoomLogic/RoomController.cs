@@ -20,19 +20,22 @@ public class RoomController : MonoBehaviour
 		else
 		{
 			Instance = this;
-			
-			foreach (RoomRow roomRow in GetComponentsInChildren<RoomRow>())
-			{
-				_roomRows.Add(roomRow.Id, roomRow);
-			}
-			
 			DontDestroyOnLoad(gameObject);
 		}
 	}
 
 	public void Initialize(RoomData data)
 	{
+		foreach (RoomRow roomRow in GetComponentsInChildren<RoomRow>())
+		{
+			_roomRows.Add(roomRow.Id, roomRow);
+		}
 		
+		for (int i = 0; i < data.RoomRows.Count; i++)
+		{
+			RoomRowData roomRowData = data.RoomRows[i];
+			_roomRows[i].Initialize(roomRowData);
+		}
 	}
 	
 	public Transform PlacePlayer(RoomData data)
@@ -42,7 +45,35 @@ public class RoomController : MonoBehaviour
 	
 	public Transform MovePlayer(MoveDirection direction)
 	{
-		return null;
+		switch (direction)
+		{
+			case MoveDirection.Up:
+				if (_playerCurrentRow < 7)
+				{
+					_playerCurrentRow++;
+				}
+				break;
+			case MoveDirection.Down:
+				if (_playerCurrentRow > 1)
+				{
+					_playerCurrentRow--;
+				}
+				break;
+			case MoveDirection.Left:
+				if (_playerCurrentPointInRow > 1)
+				{
+					_playerCurrentPointInRow--;
+				}
+				break;
+			case MoveDirection.Right:
+				if (_playerCurrentPointInRow < 7)
+				{
+					_playerCurrentPointInRow++;
+				}
+				break;
+		}
+		
+		return _roomRows[_playerCurrentRow].GetRoomPoint(_playerCurrentPointInRow);
 	}
 
 	private Transform PlacePlayer(int row, int pointInRow)

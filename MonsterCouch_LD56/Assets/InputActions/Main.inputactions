@@ -163,10 +163,10 @@
                 {
                     "name": "",
                     "id": "992ba7e4-51d1-403d-8c0e-95c0305dbdd6",
-                    "path": "<Joystick>/stick/up",
+                    "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Gamepad",
                     "action": "MoveUp",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -185,10 +185,10 @@
                 {
                     "name": "",
                     "id": "8e3f7c80-bed8-4f5c-8640-979077c8fdad",
-                    "path": "<Joystick>/stick/down",
+                    "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Gamepad",
                     "action": "MoveDown",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -207,10 +207,10 @@
                 {
                     "name": "",
                     "id": "9eedf056-25e7-4488-a12f-aa962e8639a6",
-                    "path": "<Joystick>/stick/right",
+                    "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Gamepad",
                     "action": "MoveRight",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -229,10 +229,10 @@
                 {
                     "name": "",
                     "id": "860303d9-a459-4fd5-960d-d0fba0f0262b",
-                    "path": "<Joystick>/stick/left",
+                    "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Gamepad",
                     "action": "MoveLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
