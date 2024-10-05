@@ -25,20 +25,44 @@ public class InputManager : MonoBehaviour
 	}
 
 	public Action MoveUp;
-	public Action MoveDown;
 	public Action MoveLeft;
 	public Action MoveRight;
 	public Action RestartLevel;
+	
+	private Action _backupMoveUp;
+	private Action _backupMoveLeft;
+	private Action _backupMoveRight;
 
 	private Dictionary<string, Action> actions = new();
 	
 	public void Clear()
 	{
 		MoveUp = null;
-		MoveDown = null;
 		MoveLeft = null;
 		MoveRight = null;
 		RestartLevel = null;
+		
+		_backupMoveUp = null;
+		_backupMoveLeft = null;
+		_backupMoveRight = null;
+	}
+	
+	public void BlockMovement()
+	{
+		_backupMoveUp = MoveUp;
+		_backupMoveLeft = MoveLeft;
+		_backupMoveRight = MoveRight;
+
+		MoveUp = null;
+		MoveLeft = null;
+		MoveRight = null;
+	}
+
+	public void UnblockMovement()
+	{
+		MoveUp = _backupMoveUp;
+		MoveLeft = _backupMoveLeft;
+		MoveRight = _backupMoveRight;
 	}
 	
 	private void Awake()
