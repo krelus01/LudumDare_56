@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
 			_roomController.Clear();
 			_stomachController.Clear();
 			_playerController.Clear();
+			InputManager.Instance.Clear();
 			Initialize();
 		};
 		
