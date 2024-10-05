@@ -32,6 +32,15 @@ public class InputManager : MonoBehaviour
 
 	private Dictionary<string, Action> actions = new();
 	
+	public void Clear()
+	{
+		MoveUp = null;
+		MoveDown = null;
+		MoveLeft = null;
+		MoveRight = null;
+		RestartLevel = null;
+	}
+	
 	private void Awake()
 	{
 		if (_instance != null && _instance != this)

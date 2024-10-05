@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class StomachController : MonoBehaviour
@@ -87,8 +88,45 @@ public class StomachController : MonoBehaviour
 		foreach (StomachSlotController slot in matchedSlots)
 		{
 			slot.CompleteSlot(_emptyTinyCreaturePrefab);
-			MoveElementsAboveDown(slot);
 		}
+	
+		DOVirtual.DelayedCall(0.6f, MoveElementsDown); // Delay to match the animation duration
+	}
+	
+	private void MoveElementsDown()
+	{
+		for (int col = 0; col < COLUMN_SIZE; col++)
+		{
+			for (int row = ROW_SIZE - 1; row >= 0; row--)
+			{
+				int index = row * COLUMN_SIZE + col;
+
+				if (!_stomachSlots[index].IsEmpty)
+				{
+					int targetIndex = FindLowestEmptySlot(col, row);
+
+					if (targetIndex != -1)
+					{
+						_stomachSlots[targetIndex].MoveElementFrom(_stomachSlots[index]);
+					}
+				}
+			}
+		}
+	}
+
+	private int FindLowestEmptySlot(int col, int startRow)
+	{
+		for (int row = ROW_SIZE - 1; row > startRow; row--)
+		{
+			int index = row * COLUMN_SIZE + col;
+
+			if (_stomachSlots[index].IsEmpty)
+			{
+				return index;
+			}
+		}
+
+		return -1;
 	}
 	
 	private List<StomachSlotController> FindThreeOrMoreOfAKind()
@@ -130,22 +168,6 @@ public class StomachController : MonoBehaviour
 		}
 	
 		return matchedSlots;
-	}
-	
-	private void MoveElementsAboveDown(StomachSlotController slot)
-	{
-		int index = _stomachSlots.IndexOf(slot);
-		int col = index % COLUMN_SIZE;
-	
-		for (int row = (index / COLUMN_SIZE) - 1; row >= 0; row--)
-		{
-			int aboveIndex = row * COLUMN_SIZE + col;
-			if (!_stomachSlots[aboveIndex].IsEmpty)
-			{
-				_stomachSlots[index].MoveElementFrom(_stomachSlots[aboveIndex]);
-				index = aboveIndex;
-			}
-		}
 	}
 	
 	
