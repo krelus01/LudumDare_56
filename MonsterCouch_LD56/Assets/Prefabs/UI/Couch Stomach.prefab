@@ -160,6 +160,9 @@ MonoBehaviour:
   - {fileID: 3767981046382570095}
   - {fileID: 4573923042314083690}
   - {fileID: 7040704298765508079}
+  _redTinyCreaturePrefab: {fileID: 11400000, guid: 0dcfdcb4bdba93844b385bd5950702dc, type: 2}
+  _blueTinyCreaturePrefab: {fileID: 11400000, guid: edee83bad7dd4174c8d5628821da7255, type: 2}
+  _greenTinyCreaturePrefab: {fileID: 11400000, guid: ea4a059c4070ef34baff20fa34f4f7ca, type: 2}
 --- !u!1001 &6343735977188677158
 PrefabInstance:
   m_ObjectHideFlags: 0

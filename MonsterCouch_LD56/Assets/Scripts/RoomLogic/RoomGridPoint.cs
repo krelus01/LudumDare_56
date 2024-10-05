@@ -9,6 +9,7 @@ public class RoomGridPoint : MonoBehaviour
 	
 	
 	public int Id => _id;
+	public RoomPointData RoomPointData => _roomPointData;
 
 	public void SetRoomPoint(RoomPointData data)
 	{
@@ -20,5 +21,23 @@ public class RoomGridPoint : MonoBehaviour
 		{ 
 			Instantiate(data.RoomPointPrefab, transform);
 		}
+	}
+	
+	public Transform GetRoomPointTransform()
+	{
+		return transform;
+	}
+
+	public RoomPointData GetRoomPointData()
+	{
+		return RoomPointData;
+	}
+
+	public void Consume()
+	{
+		_roomPointData = ScriptableObject.CreateInstance<RoomPointData>();
+		_roomPointData.RoomPointType = TinyCreatureType.Empty;
+		
+		GetComponentInChildren<TinyCreatureInRoomController>().Clear();
 	}
 }
