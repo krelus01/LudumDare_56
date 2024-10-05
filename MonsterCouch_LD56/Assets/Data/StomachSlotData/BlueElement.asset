@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ab51c9922fa4fd5887afb93ee8e65e0, type: 3}
-  m_Name: RoomRowData
+  m_Script: {fileID: 11500000, guid: 3d392695bad44d1dacfb3ae0a34a5ae2, type: 3}
+  m_Name: BlueElement
   m_EditorClassIdentifier: 
-  Id: 0
-  RoomGridPoints: []
+  TinyCreatureType: 2
+  StomachElementPrefab: {fileID: 5175091988436322545, guid: 34d50630361f32b49986f6cf20ee899a, type: 3}

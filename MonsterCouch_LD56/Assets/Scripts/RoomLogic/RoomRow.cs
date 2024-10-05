@@ -33,7 +33,7 @@ public class RoomRow : MonoBehaviour
 		for (int i = 0; i < roomRowData.RoomGridPoints.Count; i++)
 		{
 			RoomPointData roomPointData = roomRowData.RoomGridPoints[i];
-			_roomGridPoints[i].SetRoomPoint(roomPointData);
+			_roomGridPoints[i + 1].SetRoomPoint(roomPointData);
 		}
 	}
 }

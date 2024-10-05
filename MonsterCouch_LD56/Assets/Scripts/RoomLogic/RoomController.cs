@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,11 +33,11 @@ public class RoomController : MonoBehaviour
 		for (int i = 0; i < data.RoomRows.Count; i++)
 		{
 			RoomRowData roomRowData = data.RoomRows[i];
-			_roomRows[i].Initialize(roomRowData);
+			_roomRows[i + 1].Initialize(roomRowData);
 		}
 	}
 	
-	public Transform PlacePlayer(RoomData data)
+	public Transform PlacePlayer(LevelData data)
 	{
 		return PlacePlayer(data.PlayerStartingRow, data.PlayerStartingRowPoint);
 	}

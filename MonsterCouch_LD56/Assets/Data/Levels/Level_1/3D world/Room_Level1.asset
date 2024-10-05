@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2b77f37f7741a28dbd457df139752d, type: 3}
+  m_Name: Room_Level1
+  m_EditorClassIdentifier: 
+  PlayerStartingRow: 2
+  PlayerStartingRowPoint: 3
+  RoomRows:
+  - {fileID: 11400000, guid: 12a6d9d6638e6054787c5e999dbdf9e3, type: 2}
+  - {fileID: 11400000, guid: 57196e19d10c451479b67855c166bdd8, type: 2}
+  - {fileID: 11400000, guid: f6de641be8e59a94da0cd7a0a187922f, type: 2}
+  - {fileID: 11400000, guid: 631eb3876d58422499ad4e54cd487330, type: 2}
+  - {fileID: 11400000, guid: 646ec6b7b0620e04c9b65debe5854e2e, type: 2}
+  - {fileID: 11400000, guid: cf124602f82f70f4f86c8db68a2d4199, type: 2}
+  - {fileID: 11400000, guid: 714a67ae5fc05164e88223aa4a690b78, type: 2}

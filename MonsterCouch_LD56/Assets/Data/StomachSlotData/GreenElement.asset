@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc2b77f37f7741a28dbd457df139752d, type: 3}
-  m_Name: Level1
+  m_Script: {fileID: 11500000, guid: 3d392695bad44d1dacfb3ae0a34a5ae2, type: 3}
+  m_Name: GreenElement
   m_EditorClassIdentifier: 
-  PlayerStartingRow: 2
-  PlayerStartingRowPoint: 3
-  RoomRows:
-  - {fileID: 0}
+  TinyCreatureType: 3
+  StomachElementPrefab: {fileID: 5175091988436322545, guid: c2d5fef21a0da7f4a905774121e7e7e0, type: 3}

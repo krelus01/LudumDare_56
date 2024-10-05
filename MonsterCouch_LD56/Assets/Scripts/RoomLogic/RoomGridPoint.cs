@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomGridPoint : MonoBehaviour
@@ -18,7 +16,7 @@ public class RoomGridPoint : MonoBehaviour
 		
 		Instantiate(_floorPrefab, transform);
 
-		if (_roomPointData != null && _roomPointData.RoomPointType != RoomPointType.Empty)
+		if (_roomPointData != null && _roomPointData.RoomPointType != TinyCreatureType.Empty)
 		{ 
 			Instantiate(data.RoomPointPrefab, transform);
 		}
