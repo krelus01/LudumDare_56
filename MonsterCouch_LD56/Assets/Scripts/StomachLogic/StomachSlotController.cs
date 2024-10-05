@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
@@ -75,23 +77,22 @@ public class StomachSlotController : MonoBehaviour
 		Instantiate(stomachSlot.StomachElementPrefab, transform);
 	}
 
-	public void CompleteSlot(StomachSlotData emptyTinyCreaturePrefab)
+	public async UniTask CompleteSlotAsync(StomachSlotData emptyTinyCreaturePrefab, CancellationToken cancellationToken)
 	{
 		// Simple disappearing animation using DOTween
-		float duration = 0.5f; // duration of the animation
-		transform.DOScale(Vector3.zero, duration).OnComplete(() =>
-		{
-			_stomachSlotData = emptyTinyCreaturePrefab;
-			// Set empty tiny creature
-			
-			// Update the visual representation
-			foreach (Transform child in transform)
-			{
-				Destroy(child.gameObject);
-			}
+		float duration = 0.4f; // duration of the animation
+	    await transform.DOScale(Vector3.zero, duration).ToUniTask(cancellationToken: cancellationToken);
 	
-			// Restore the original scale
-			transform.DOScale(Vector3.one, duration);
-		});
+		_stomachSlotData = emptyTinyCreaturePrefab;
+		// Set empty tiny creature
+		
+		// Update the visual representation
+		foreach (Transform child in transform)
+		{
+			Destroy(child.gameObject);
+		}
+	
+		// Restore the original scale
+	    await transform.DOScale(Vector3.one, 0f).ToUniTask(cancellationToken: cancellationToken);
 	}
 }

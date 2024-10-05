@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
@@ -17,6 +19,9 @@ public class StomachController : MonoBehaviour
 	[SerializeField] private StomachSlotData _blueTinyCreaturePrefab;
 	[SerializeField] private StomachSlotData _greenTinyCreaturePrefab;
 
+	
+	private CancellationTokenSource _animCts;
+	
 	private void Awake()
 	{
 		if (Instance != null && Instance != this)
@@ -75,22 +80,30 @@ public class StomachController : MonoBehaviour
 				break;
 			}
 		}
+
+		ResetCts();
 		
-		CompleteThreeOfAKind();
+		CompleteThreeOfAKind(_animCts.Token).Forget();
 	}
-	
-	
-	
-	private void CompleteThreeOfAKind()
+
+
+	private async UniTask CompleteThreeOfAKind(CancellationToken animCtsToken)
 	{
 		List<StomachSlotController> matchedSlots = FindThreeOrMoreOfAKind();
 	
+		List<UniTask> tasks = new();
 		foreach (StomachSlotController slot in matchedSlots)
 		{
-			slot.CompleteSlot(_emptyTinyCreaturePrefab);
+		    tasks.Add(slot.CompleteSlotAsync(_emptyTinyCreaturePrefab, animCtsToken));
 		}
+		
+		InputManager.Instance.BlockMovement();
+		
+		await UniTask.WhenAll(tasks);
 	
-		DOVirtual.DelayedCall(0.6f, MoveElementsDown); // Delay to match the animation duration
+		MoveElementsDown();
+		
+		InputManager.Instance.UnblockMovement();
 	}
 	
 	private void MoveElementsDown()
@@ -183,7 +196,9 @@ public class StomachController : MonoBehaviour
 			MoveElementsToMostLeft();
 		}
 		
-		CompleteThreeOfAKind();
+		ResetCts();
+		
+		CompleteThreeOfAKind(_animCts.Token).Forget();
 	}
 
 	private void MoveElementsToMostRight()
@@ -286,5 +301,11 @@ public class StomachController : MonoBehaviour
 
 			slot.SetNeighbours(neighbours);
 		}
+	}
+	
+	private void ResetCts()
+	{
+		_animCts?.Cancel();
+		_animCts = new CancellationTokenSource();
 	}
 }
