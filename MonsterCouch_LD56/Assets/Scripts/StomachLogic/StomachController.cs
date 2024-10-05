@@ -104,8 +104,28 @@ public class StomachController : MonoBehaviour
 		MoveElementsDown();
 		
 		InputManager.Instance.UnblockMovement();
+		
+		CheckIfStomachIsEmpty();
 	}
-	
+
+	private void CheckIfStomachIsEmpty()
+	{
+		bool isEmpty = true;
+		foreach (StomachSlotController slot in _stomachSlots)
+		{
+			if (!slot.IsEmpty)
+			{
+				isEmpty = false;
+				break;
+			}
+		}
+
+		if (isEmpty)
+		{
+			GameController.Instance.LevelCompleted().Forget();
+		}
+	}
+
 	private void MoveElementsDown()
 	{
 		for (int col = 0; col < COLUMN_SIZE; col++)
