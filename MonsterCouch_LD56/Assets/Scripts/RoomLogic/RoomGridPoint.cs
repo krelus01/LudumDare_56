@@ -15,7 +15,3 @@ public class RoomGridPoint : MonoBehaviour
 		Instantiate(_floorPrefab, transform);
 	}
 }
-
-public class RoomPointData : ScriptableObject
-{
-}
