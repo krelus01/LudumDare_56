@@ -9,25 +9,32 @@ public class RoomRow : MonoBehaviour
 	
 	public int Id => _rowId;
 
-	private void Awake()
+	public void Initialize(RoomRowData roomRowData)
 	{
 		foreach (RoomGridPoint roomPoint in GetComponentsInChildren<RoomGridPoint>())
 		{
 			_roomGridPoints.Add(roomPoint.Id, roomPoint);
 		}
-	}
-
-	public RoomGridPoint GetRoomPoint(int pointInRow)
-	{
-		return _roomGridPoints[pointInRow];
-	}
-
-	public void Initialize(RoomRowData roomRowData)
-	{
+		
 		for (int i = 0; i < roomRowData.RoomGridPoints.Count; i++)
 		{
 			RoomPointData roomPointData = roomRowData.RoomGridPoints[i];
 			_roomGridPoints[i + 1].SetRoomPoint(roomPointData);
 		}
+	}
+
+	public void Clear()
+	{
+		foreach (KeyValuePair<int, RoomGridPoint> roomPoint in _roomGridPoints)
+		{
+			roomPoint.Value.Consume();
+		}
+		
+		_roomGridPoints.Clear();
+	}
+	
+	public RoomGridPoint GetRoomPoint(int pointInRow)
+	{
+		return _roomGridPoints[pointInRow];
 	}
 }

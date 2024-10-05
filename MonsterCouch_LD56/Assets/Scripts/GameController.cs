@@ -17,10 +17,18 @@ public class GameController : MonoBehaviour
 
 	private void Awake()
 	{
+		InputManager.Instance.RestartLevel += () =>
+		{
+			_roomController.Clear();
+			_stomachController.Clear();
+			_playerController.Clear();
+			Initialize();
+		};
+		
 		Initialize();
 	}
 
-	public void Initialize()
+	private void Initialize()
 	{
 		LevelData levelData = _levels[_currentLevelIndex];
 		

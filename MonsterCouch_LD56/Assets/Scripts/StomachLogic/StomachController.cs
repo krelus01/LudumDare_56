@@ -11,6 +11,7 @@ public class StomachController : MonoBehaviour
 
 	[SerializeField] private List<StomachSlotController> _stomachSlots;
 	[Space]
+	[SerializeField] private StomachSlotData _emptyTinyCreaturePrefab;
 	[SerializeField] private StomachSlotData _redTinyCreaturePrefab;
 	[SerializeField] private StomachSlotData _blueTinyCreaturePrefab;
 	[SerializeField] private StomachSlotData _greenTinyCreaturePrefab;
@@ -31,7 +32,6 @@ public class StomachController : MonoBehaviour
 	public void Initialize(StomachData stomachData)
 	{
 		InputManager.Instance.MoveUp += () => Moved(MoveDirection.Up);
-		InputManager.Instance.MoveDown += () => Moved(MoveDirection.Down);
 		InputManager.Instance.MoveLeft += () => Moved(MoveDirection.Left);
 		InputManager.Instance.MoveRight += () => Moved(MoveDirection.Right);
 
@@ -40,6 +40,18 @@ public class StomachController : MonoBehaviour
 		for (int i = 0; i < stomachData.StomachSlots.Count; i++)
 		{
 			_stomachSlots[i].Initialize(stomachData.StomachSlots[i]);
+		}
+	}
+	
+	public void Clear()
+	{
+		InputManager.Instance.MoveUp -= () => Moved(MoveDirection.Up);
+		InputManager.Instance.MoveLeft -= () => Moved(MoveDirection.Left);
+		InputManager.Instance.MoveRight -= () => Moved(MoveDirection.Right);
+		
+		foreach (StomachSlotController slot in _stomachSlots)
+		{
+			slot.Clear();
 		}
 	}
 
@@ -62,6 +74,78 @@ public class StomachController : MonoBehaviour
 				break;
 			}
 		}
+		
+		CompleteThreeOfAKind();
+	}
+	
+	
+	
+	private void CompleteThreeOfAKind()
+	{
+		List<StomachSlotController> matchedSlots = FindThreeOrMoreOfAKind();
+	
+		foreach (StomachSlotController slot in matchedSlots)
+		{
+			slot.CompleteSlot(_emptyTinyCreaturePrefab);
+			MoveElementsAboveDown(slot);
+		}
+	}
+	
+	private List<StomachSlotController> FindThreeOrMoreOfAKind()
+	{
+		List<StomachSlotController> matchedSlots = new();
+	
+		// Check rows for matches
+		for (int row = 0; row < ROW_SIZE; row++)
+		{
+			for (int col = 0; col < COLUMN_SIZE - 2; col++)
+			{
+				int index = row * COLUMN_SIZE + col;
+				if (!_stomachSlots[index].IsEmpty &&
+					_stomachSlots[index].ElementType == _stomachSlots[index + 1].ElementType &&
+					_stomachSlots[index].ElementType == _stomachSlots[index + 2].ElementType)
+				{
+					matchedSlots.Add(_stomachSlots[index]);
+					matchedSlots.Add(_stomachSlots[index + 1]);
+					matchedSlots.Add(_stomachSlots[index + 2]);
+				}
+			}
+		}
+		
+		// Check columns for matches
+		for (int col = 0; col < COLUMN_SIZE; col++)
+		{
+			for (int row = 0; row < ROW_SIZE - 2; row++)
+			{
+				int index = row * COLUMN_SIZE + col;
+				if (!_stomachSlots[index].IsEmpty &&
+					_stomachSlots[index].ElementType == _stomachSlots[index + COLUMN_SIZE].ElementType &&
+					_stomachSlots[index].ElementType == _stomachSlots[index + 2 * COLUMN_SIZE].ElementType)
+				{
+					matchedSlots.Add(_stomachSlots[index]);
+					matchedSlots.Add(_stomachSlots[index + COLUMN_SIZE]);
+					matchedSlots.Add(_stomachSlots[index + 2 * COLUMN_SIZE]);
+				}
+			}
+		}
+	
+		return matchedSlots;
+	}
+	
+	private void MoveElementsAboveDown(StomachSlotController slot)
+	{
+		int index = _stomachSlots.IndexOf(slot);
+		int col = index % COLUMN_SIZE;
+	
+		for (int row = (index / COLUMN_SIZE) - 1; row >= 0; row--)
+		{
+			int aboveIndex = row * COLUMN_SIZE + col;
+			if (!_stomachSlots[aboveIndex].IsEmpty)
+			{
+				_stomachSlots[index].MoveElementFrom(_stomachSlots[aboveIndex]);
+				index = aboveIndex;
+			}
+		}
 	}
 	
 	
@@ -76,6 +160,8 @@ public class StomachController : MonoBehaviour
 		{
 			MoveElementsToMostLeft();
 		}
+		
+		CompleteThreeOfAKind();
 	}
 
 	private void MoveElementsToMostRight()

@@ -37,6 +37,16 @@ public class RoomController : MonoBehaviour
 		}
 	}
 	
+	public void Clear()
+	{
+		foreach (KeyValuePair<int,RoomRow> roomRow in _roomRows)
+		{
+			roomRow.Value.Clear();
+		}
+		
+		_roomRows.Clear();
+	}
+	
 	public Transform PlacePlayer(LevelData data)
 	{
 		return PlacePlayer(data.PlayerStartingRow, data.PlayerStartingRowPoint);

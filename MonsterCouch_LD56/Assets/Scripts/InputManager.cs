@@ -28,6 +28,7 @@ public class InputManager : MonoBehaviour
 	public Action MoveDown;
 	public Action MoveLeft;
 	public Action MoveRight;
+	public Action RestartLevel;
 
 	private Dictionary<string, Action> actions = new();
 	
@@ -47,10 +48,7 @@ public class InputManager : MonoBehaviour
 				//{"MoveDown", () => MoveDown?.Invoke()},
 				{"MoveLeft", () => MoveLeft?.Invoke()},
 				{"MoveRight", () => MoveRight?.Invoke()},
-				{"Jump", () => Debug.Log("Jump")},
-				{"Attack", () => Debug.Log("Attack")},
-				{"Interact", () => Debug.Log("Interact")},
-				{"Pause", () => Debug.Log("Pause")}
+				{"RestartLevel", () => RestartLevel?.Invoke()},
 			};
 			
 			PlayerInput playerInput = GetComponent<PlayerInput>();

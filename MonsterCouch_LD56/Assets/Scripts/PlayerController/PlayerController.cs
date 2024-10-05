@@ -19,6 +19,15 @@ public class PlayerController : MonoBehaviour
 		InputManager.Instance.MoveRight += () => Move(MoveDirection.Right);
 	}
 
+	public void Clear()
+	{
+		InputManager.Instance.MoveUp -= () => Move(MoveDirection.Up);
+		InputManager.Instance.MoveLeft -= () => Move(MoveDirection.Left);
+		InputManager.Instance.MoveRight -= () => Move(MoveDirection.Right);
+		
+		Destroy(gameObject);
+	}
+	
 	private void Move(MoveDirection direction)
 	{
 		Debug.Log("Move" + direction);

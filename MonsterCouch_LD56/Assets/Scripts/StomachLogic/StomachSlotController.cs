@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class StomachSlotController : MonoBehaviour
@@ -11,11 +12,8 @@ public class StomachSlotController : MonoBehaviour
 
 	public int Id => _slotId;
 	public bool IsEmpty => _stomachSlotData.TinyCreatureType == StomachElementType.Empty;
-
-	public void SetNeighbours(List<StomachSlotController> neighbours)
-	{
-		_neighbours = neighbours;
-	}
+	public List<StomachSlotController> Neighbours => _neighbours;
+	public StomachElementType ElementType => _stomachSlotData.TinyCreatureType;
 
 	public void Initialize(StomachSlotData stomachSlot)
 	{
@@ -25,6 +23,22 @@ public class StomachSlotController : MonoBehaviour
 		{
 			Instantiate(stomachSlot.StomachElementPrefab, transform);
 		}
+	}
+	
+	public void Clear()
+	{
+		_stomachSlotData = ScriptableObject.CreateInstance<StomachSlotData>();
+		_stomachSlotData.TinyCreatureType = StomachElementType.Empty;
+		
+		foreach (Transform child in transform)
+		{
+			Destroy(child.gameObject);
+		}
+	}
+	
+	public void SetNeighbours(List<StomachSlotController> neighbours)
+	{
+		_neighbours = neighbours;
 	}
 	
 	public void MoveElementFrom(StomachSlotController sourceSlot)
@@ -59,5 +73,25 @@ public class StomachSlotController : MonoBehaviour
 		_stomachSlotData = stomachSlot;
 		
 		Instantiate(stomachSlot.StomachElementPrefab, transform);
+	}
+
+	public void CompleteSlot(StomachSlotData emptyTinyCreaturePrefab)
+	{
+		// Simple disappearing animation using DOTween
+		float duration = 0.5f; // duration of the animation
+		transform.DOScale(Vector3.zero, duration).OnComplete(() =>
+		{
+			_stomachSlotData = emptyTinyCreaturePrefab;
+			// Set empty tiny creature
+			
+			// Update the visual representation
+			foreach (Transform child in transform)
+			{
+				Destroy(child.gameObject);
+			}
+	
+			// Restore the original scale
+			transform.DOScale(Vector3.one, duration);
+		});
 	}
 }
