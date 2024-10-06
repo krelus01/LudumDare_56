@@ -17,7 +17,7 @@ public class RoomGridPoint : MonoBehaviour
 		
 		Instantiate(_floorPrefab, transform);
 
-		if (_roomPointData != null && _roomPointData.RoomPointType != TinyCreatureType.Empty)
+		if (_roomPointData != null && _roomPointData.RoomPointType != SockType.Empty)
 		{ 
 			Instantiate(data.RoomPointPrefab, transform);
 		}
@@ -36,9 +36,9 @@ public class RoomGridPoint : MonoBehaviour
 	public void Consume()
 	{
 		_roomPointData = ScriptableObject.CreateInstance<RoomPointData>();
-		_roomPointData.RoomPointType = TinyCreatureType.Empty;
+		_roomPointData.RoomPointType = SockType.Empty;
 		
-		var tinyCreatureController = GetComponentInChildren<TinyCreatureInRoomController>();
+		var tinyCreatureController = GetComponentInChildren<SocksInRoomController>();
 		if (tinyCreatureController != null)
 		{
 		    tinyCreatureController.Clear();

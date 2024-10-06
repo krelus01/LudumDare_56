@@ -91,7 +91,7 @@ public class RoomController : MonoBehaviour
 
 	private void ConsumeTinyCreature(RoomGridPoint roomPoint)
 	{
-		if (roomPoint.RoomPointData.RoomPointType != TinyCreatureType.Empty && roomPoint.RoomPointData.RoomPointType != TinyCreatureType.Wall)
+		if (roomPoint.RoomPointData.RoomPointType != SockType.Empty && roomPoint.RoomPointData.RoomPointType != SockType.Wall)
 		{
 			StomachController.Instance.AddTinyCreature(roomPoint.RoomPointData.RoomPointType);
 			roomPoint.Consume();

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 
 public class StomachController : MonoBehaviour
@@ -61,7 +60,7 @@ public class StomachController : MonoBehaviour
 		}
 	}
 
-	public void AddTinyCreature(TinyCreatureType roomPointType)
+	public void AddTinyCreature(SockType roomPointType)
 	{
 		for (int row = ROW_SIZE - 1; row >= 0; row--)
 		{
@@ -70,13 +69,13 @@ public class StomachController : MonoBehaviour
 			{
 				StomachSlotData stomachslotData = roomPointType switch
 				{
-					TinyCreatureType.RedCreature => _redTinyCreaturePrefab,
-					TinyCreatureType.BlueCreature => _blueTinyCreaturePrefab,
-					TinyCreatureType.GreenCreature => _greenTinyCreaturePrefab,
+					SockType.RedCreature => _redTinyCreaturePrefab,
+					SockType.BlueCreature => _blueTinyCreaturePrefab,
+					SockType.GreenCreature => _greenTinyCreaturePrefab,
 					_ => throw new ArgumentOutOfRangeException()
 				};
 				
-				_stomachSlots[index].SetTinyCreature(stomachslotData);
+				_stomachSlots[index].SetSock(stomachslotData);
 				break;
 			}
 		}
@@ -173,8 +172,8 @@ public class StomachController : MonoBehaviour
 			{
 				int index = row * COLUMN_SIZE + col;
 				if (!_stomachSlots[index].IsEmpty &&
-					_stomachSlots[index].ElementType == _stomachSlots[index + 1].ElementType &&
-					_stomachSlots[index].ElementType == _stomachSlots[index + 2].ElementType)
+					_stomachSlots[index].SockType == _stomachSlots[index + 1].SockType &&
+					_stomachSlots[index].SockType == _stomachSlots[index + 2].SockType)
 				{
 					matchedSlots.Add(_stomachSlots[index]);
 					matchedSlots.Add(_stomachSlots[index + 1]);
@@ -190,8 +189,8 @@ public class StomachController : MonoBehaviour
 			{
 				int index = row * COLUMN_SIZE + col;
 				if (!_stomachSlots[index].IsEmpty &&
-					_stomachSlots[index].ElementType == _stomachSlots[index + COLUMN_SIZE].ElementType &&
-					_stomachSlots[index].ElementType == _stomachSlots[index + 2 * COLUMN_SIZE].ElementType)
+					_stomachSlots[index].SockType == _stomachSlots[index + COLUMN_SIZE].SockType &&
+					_stomachSlots[index].SockType == _stomachSlots[index + 2 * COLUMN_SIZE].SockType)
 				{
 					matchedSlots.Add(_stomachSlots[index]);
 					matchedSlots.Add(_stomachSlots[index + COLUMN_SIZE]);
