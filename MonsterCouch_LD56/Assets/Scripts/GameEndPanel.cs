@@ -5,6 +5,7 @@ internal class GameEndPanel : MonoBehaviour
 {
 	[SerializeField] private TextMeshProUGUI _gameEndText;
 	[SerializeField] private TextMeshProUGUI _leveCompletedText;
+	[SerializeField] private TextMeshProUGUI _gameBeatedText;
 	
 	public void ShowGameOver()
 	{
@@ -23,5 +24,12 @@ internal class GameEndPanel : MonoBehaviour
 		gameObject.SetActive(false);
 		_gameEndText.gameObject.SetActive(false);
 		_leveCompletedText.gameObject.SetActive(false);
+		_gameBeatedText.gameObject.SetActive(false);
+	}
+
+	public void ShowGameBeaten()
+	{
+		gameObject.SetActive(true);
+		_gameBeatedText.gameObject.SetActive(true);
 	}
 }

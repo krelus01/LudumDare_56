@@ -56,7 +56,8 @@ public class GameController : MonoBehaviour
 		_currentLevelIndex++;
 		if (_currentLevelIndex >= _levels.Count)
 		{
-			_currentLevelIndex = 0;
+			_gameEndPanel.ShowGameBeaten();
+			return;
 		}
 		
 		RestartLevel();
