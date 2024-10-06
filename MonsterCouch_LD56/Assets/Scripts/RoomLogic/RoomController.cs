@@ -93,6 +93,49 @@ public class RoomController : MonoBehaviour
 		return roomPoint.GetRoomPointTransform();
 	}
 
+	
+	
+	public Vector2Int GetPlayerPosition()
+	{
+		return new Vector2Int(_playerCurrentRow, _playerCurrentPointInRow);
+	}
+	
+	public Transform SetPosition(Vector2Int statePlayerPosition)
+	{
+		_playerCurrentRow = statePlayerPosition.x;
+		_playerCurrentPointInRow = statePlayerPosition.y;
+
+		return PlacePlayer(_playerCurrentRow, _playerCurrentPointInRow);
+	}
+	
+	public RoomData GetRoomData()
+	{
+		RoomData newRoomData = ScriptableObject.CreateInstance<RoomData>();
+		newRoomData.RoomRows = new List<RoomRowData>();
+		
+		foreach (KeyValuePair<int, RoomRow> roomRow in _roomRows)
+		{
+			RoomRowData newRoomRowData = ScriptableObject.CreateInstance<RoomRowData>();
+			newRoomRowData.RoomGridPoints = new List<RoomPointData>();
+			
+			foreach (KeyValuePair<int, RoomGridPoint> roomPoint in roomRow.Value.GetRoomGridPoints())
+			{
+				newRoomRowData.RoomGridPoints.Add(roomPoint.Value.GetRoomPointData());
+			}
+			
+			newRoomData.RoomRows.Insert(0, newRoomRowData);
+		}
+		
+		return newRoomData;
+	}
+	
+	public void SetRoomData(RoomData stateRoomData)
+	{
+		Clear();
+		Initialize(stateRoomData);
+	}
+	
+	
 	private void ConsumeSockFrom3d(RoomGridPoint roomPoint)
 	{
 		if (roomPoint.RoomPointData.RoomPointType != SockType.Empty && roomPoint.RoomPointData.RoomPointType != SockType.Wall)

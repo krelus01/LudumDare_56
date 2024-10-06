@@ -36,6 +36,11 @@ public class StomachSlotController : MonoBehaviour
 		}
 	}
 	
+	public StomachSlotData GetStomachSlotData()
+	{
+		return _stomachSlotData;
+	}
+	
 	public void SetNeighbours(List<StomachSlotController> neighbours)
 	{
 		_neighbours = neighbours;
@@ -71,6 +76,11 @@ public class StomachSlotController : MonoBehaviour
 	public void SetSock(StomachSlotData stomachSlot)
 	{
 		_stomachSlotData = stomachSlot;
+		
+		if (stomachSlot.SockType == StomachSockType.Empty)
+		{
+			return;
+		}
 		
 		Instantiate(stomachSlot.StomachElementPrefab, transform);
 	}
