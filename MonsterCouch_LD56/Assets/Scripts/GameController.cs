@@ -111,7 +111,6 @@ public class GameController : MonoBehaviour
 		else
 		{
 			Instance = this;
-			SoundManager.Instance.PlayMusic(AudioClipType.BackgroundMusic);
 			DontDestroyOnLoad(gameObject);
 		}
 	}

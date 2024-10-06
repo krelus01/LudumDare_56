@@ -31,6 +31,7 @@ public class InputManager : MonoBehaviour
 	public Action MoveRight;
 	public Action RestartLevel;
 	public Action UndoMove;
+	public Action Pause;
 	
 	private Action _backupMoveUp;
 	private Action _backupMoveLeft;
@@ -102,6 +103,7 @@ public class InputManager : MonoBehaviour
 				{"MoveRight", () => MoveRight?.Invoke()},
 				{"RestartLevel", () => RestartLevel?.Invoke()},
 				{"Undo", () => UndoMove?.Invoke()},
+				{"Pause", () => Pause?.Invoke()}
 			};
 			
 			PlayerInput playerInput = GetComponent<PlayerInput>();
