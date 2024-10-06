@@ -161,7 +161,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1566673861247032249}
-  - {fileID: 6897093059164288749}
   - {fileID: 2045127258368366542}
   m_Father: {fileID: 6969239581065207641}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -246,90 +245,4 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5e03adcc18b6f8a499aa2197b292bdb9, type: 3}
   m_PrefabInstance: {fileID: 2011834813631082533}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &6358481125843783942
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 3144644176192444085}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.13
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.26
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.18199998
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.35714287
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.032999992
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.00000016391276
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -180
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 419a8c43112a508438f9151619345f85, type: 2}
-    - target: {fileID: 919132149155446097, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_Name
-      value: Couch
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
---- !u!4 &6897093059164288749 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5b33a59196370bf4587d7dd8a1909304, type: 3}
-  m_PrefabInstance: {fileID: 6358481125843783942}
   m_PrefabAsset: {fileID: 0}
