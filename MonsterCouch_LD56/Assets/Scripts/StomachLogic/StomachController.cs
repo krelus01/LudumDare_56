@@ -60,8 +60,10 @@ public class StomachController : MonoBehaviour
 		}
 	}
 
-	public void AddTinyCreature(SockType roomPointType)
+	public void AddSockToStomach(SockType roomPointType)
 	{
+		CheckPotentialGameOver();
+		
 		for (int row = ROW_SIZE - 1; row >= 0; row--)
 		{
 			int index = row * COLUMN_SIZE + (COLUMN_SIZE / 2);
@@ -83,6 +85,16 @@ public class StomachController : MonoBehaviour
 		ResetCts();
 		
 		CompleteThreeOfAKind(_animCts.Token).Forget();
+	}
+
+	private void CheckPotentialGameOver()
+	{
+		if (_stomachSlots[2].IsEmpty)
+		{
+			return;
+		}
+		
+		GameController.Instance.GameOver().Forget();
 	}
 
 

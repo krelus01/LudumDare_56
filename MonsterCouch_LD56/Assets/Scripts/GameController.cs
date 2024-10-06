@@ -22,9 +22,14 @@ public class GameController : MonoBehaviour
 	private int _currentLevelIndex = 0;
 
 	
-	public void GameOver()
+	public async UniTaskVoid GameOver()
 	{
 		_gameEndPanel.ShowGameOver();
+		
+		await UniTask.Delay(2000);
+		
+		_gameEndPanel.Hide();
+		
 		RestartLevel();
 	}
 	
