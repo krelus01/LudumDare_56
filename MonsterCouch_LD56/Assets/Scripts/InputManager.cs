@@ -24,6 +24,8 @@ public class InputManager : MonoBehaviour
 		}
 	}
 
+	public bool IsMovementBlocked { get; private set; }
+	
 	public Action MoveUp;
 	public Action MoveLeft;
 	public Action MoveRight;
@@ -49,6 +51,8 @@ public class InputManager : MonoBehaviour
 	
 	public void BlockMovement()
 	{
+		IsMovementBlocked = true;
+		
 		_backupMoveUp = MoveUp;
 		_backupMoveLeft = MoveLeft;
 		_backupMoveRight = MoveRight;
@@ -60,6 +64,8 @@ public class InputManager : MonoBehaviour
 
 	public void UnblockMovement()
 	{
+		IsMovementBlocked = false;
+		
 		MoveUp = _backupMoveUp;
 		MoveLeft = _backupMoveLeft;
 		MoveRight = _backupMoveRight;

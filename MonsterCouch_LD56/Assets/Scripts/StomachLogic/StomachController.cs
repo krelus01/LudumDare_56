@@ -107,12 +107,15 @@ public class StomachController : MonoBehaviour
 		{
 		    tasks.Add(slot.CompleteSlotAsync(_emptyTinyCreaturePrefab, animCtsToken));
 		}
-		
-		InputManager.Instance.BlockMovement();
+
+		if (InputManager.Instance.IsMovementBlocked == false)
+		{
+			InputManager.Instance.BlockMovement();
+		}
 		
 		await UniTask.WhenAll(tasks);
 	
-		MoveElementsDown();
+		await MoveElementsDown();
 		
 		InputManager.Instance.UnblockMovement();
 		
@@ -137,7 +140,7 @@ public class StomachController : MonoBehaviour
 		}
 	}
 
-	private void MoveElementsDown()
+	private async UniTask MoveElementsDown()
 	{
 		bool moved = false;
 		
@@ -163,7 +166,7 @@ public class StomachController : MonoBehaviour
 		if (!moved) return;
 
 		ResetCts();
-		CompleteThreeOfAKind(_animCts.Token).Forget();
+		await CompleteThreeOfAKind(_animCts.Token);
 	}
 
 	private int FindLowestEmptySlot(int col, int startRow)
