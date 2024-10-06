@@ -11,14 +11,33 @@ public class MainMenuController : MonoBehaviour
    
    private void Start()
    {
+	   SoundManager.Instance.PlayMusic(AudioClipType.BackgroundMusic);
+	   
 	   _startButton.Select();
 	   
 	   _startButton.onClick.AddListener(StartGame);
 	   _exitButton.onClick.AddListener(ExitGame);
    }
 
+   private void TogglePauseMenu()
+   {
+	   if (gameObject.activeSelf)
+	   {
+		   gameObject.SetActive(false);
+	   }
+	   else
+	   {
+		   _exitButton.Select();
+		   
+		   _startButton.gameObject.SetActive(false);
+		   gameObject.SetActive(true);
+	   }
+   }
+
    private void StartGame()
    {
+	   InputManager.Instance.Pause += TogglePauseMenu;
+	   
 	   _mainMenuPanel.SetActive(false);
 	   GameController.Instance.StartGame();
    }
