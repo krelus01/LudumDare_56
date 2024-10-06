@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour
 	private LevelUndoSystem _undoSystem = new();
 	
 	private int _currentLevelIndex = 0;
+	private bool _isGameOverOrCompleted = false;
 
 
 	public void MakeSaveForUndo()
@@ -38,17 +39,35 @@ public class GameController : MonoBehaviour
 	
 	public async UniTaskVoid GameOver()
 	{
+		if (_isGameOverOrCompleted)
+		{
+			return;
+		}
+		
+		_isGameOverOrCompleted = true;
+		
+		InputManager.Instance.BlockMovement();
+		
 		_gameEndPanel.ShowGameOver();
 		
 		await UniTask.Delay(2000);
 		
 		_gameEndPanel.Hide();
 		
+		InputManager.Instance.UnblockMovement();
+		
 		RestartLevel();
 	}
 	
 	public async UniTaskVoid LevelCompleted()
 	{
+		if (_isGameOverOrCompleted)
+		{
+			return;
+		}
+		
+		_isGameOverOrCompleted = true;
+		
 		InputManager.Instance.BlockMovement();
 		
 		_gameEndPanel.ShowLevelCompleted();
@@ -146,6 +165,8 @@ public class GameController : MonoBehaviour
 
 	private void RestartLevel()
 	{
+		_isGameOverOrCompleted = false;
+		
 		InputManager.Instance.RestartLevel -= RestartLevel;
 		InputManager.Instance.UndoMove -= UndoMove;
 		
