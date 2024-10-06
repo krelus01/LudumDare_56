@@ -125,6 +125,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -1.7290039
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a18e48c47f138364e853f18751f9d30e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 75a903eb5f7d0494aac69af4bc0f865f, type: 2}
     - target: {fileID: 919132149155446097, guid: a18e48c47f138364e853f18751f9d30e, type: 3}
       propertyPath: m_Name
       value: Sock_blue
