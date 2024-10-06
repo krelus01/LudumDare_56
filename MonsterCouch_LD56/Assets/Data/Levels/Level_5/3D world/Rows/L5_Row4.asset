@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomGridPoints:
   - {fileID: 11400000, guid: 2322253eafedac147a0509ef32f0b935, type: 2}
-  - {fileID: 11400000, guid: 8ee58e4fc89a20045937f0284393fe4d, type: 2}
+  - {fileID: 11400000, guid: eb05481574f6f7541ae1306d5d236a88, type: 2}
   - {fileID: 11400000, guid: 2322253eafedac147a0509ef32f0b935, type: 2}
-  - {fileID: 11400000, guid: 2322253eafedac147a0509ef32f0b935, type: 2}
+  - {fileID: 11400000, guid: 1e591b8b8b2148c43927ae3f1cb7eace, type: 2}
   - {fileID: 11400000, guid: 2322253eafedac147a0509ef32f0b935, type: 2}
   - {fileID: 11400000, guid: 2322253eafedac147a0509ef32f0b935, type: 2}
   - {fileID: 11400000, guid: 2322253eafedac147a0509ef32f0b935, type: 2}
