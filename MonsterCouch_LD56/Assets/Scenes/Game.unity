@@ -5027,6 +5027,13 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7261772836000366970, guid: 16a1a561ade1348408f50152ef3e082f, type: 3}
+      propertyPath: m_text
+      value: 'You are most monstrous couch ever!
+
+
+        Game beaten!'
+      objectReference: {fileID: 0}
     - target: {fileID: 7289215899332652463, guid: 16a1a561ade1348408f50152ef3e082f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
