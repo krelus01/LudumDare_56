@@ -91,3 +91,17 @@ public class GameController : MonoBehaviour
 		Initialize();
 	}
 }
+
+public class GameState
+{
+	public List<StomachSlotData> StomachSlots { get; private set; }
+	public Vector2Int PlayerPosition { get; private set; }
+	public RoomData RoomData { get; private set; }
+
+	public GameState(List<StomachSlotData> stomachSlots, Vector2Int playerPosition, RoomData roomData)
+	{
+		StomachSlots = new List<StomachSlotData>(stomachSlots);
+		PlayerPosition = playerPosition;
+		RoomData = roomData;
+	}
+}

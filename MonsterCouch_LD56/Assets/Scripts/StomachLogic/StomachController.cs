@@ -139,6 +139,8 @@ public class StomachController : MonoBehaviour
 
 	private void MoveElementsDown()
 	{
+		bool moved = false;
+		
 		for (int col = 0; col < COLUMN_SIZE; col++)
 		{
 			for (int row = ROW_SIZE - 1; row >= 0; row--)
@@ -152,10 +154,16 @@ public class StomachController : MonoBehaviour
 					if (targetIndex != -1)
 					{
 						_stomachSlots[targetIndex].MoveElementFrom(_stomachSlots[index]);
+						moved = true;
 					}
 				}
 			}
 		}
+
+		if (!moved) return;
+
+		ResetCts();
+		CompleteThreeOfAKind(_animCts.Token).Forget();
 	}
 
 	private int FindLowestEmptySlot(int col, int startRow)
