@@ -73,7 +73,7 @@ public class StomachSlotController : MonoBehaviour
 		}
 	}
 
-	public void SetSock(StomachSlotData stomachSlot)
+	public async UniTask SetSock(StomachSlotData stomachSlot, Transform stomachSpawnPoint, CancellationToken animCtsToken)
 	{
 		_stomachSlotData = stomachSlot;
 		
@@ -82,7 +82,11 @@ public class StomachSlotController : MonoBehaviour
 			return;
 		}
 		
-		Instantiate(stomachSlot.StomachElementPrefab, transform);
+	    GameObject newSockInStomach = Instantiate(stomachSlot.StomachElementPrefab, stomachSpawnPoint.position, Quaternion.identity, transform);
+		
+	    // Animate the sock moving from the spawn point to its original position
+	    float duration = 0.5f; // duration of the animation
+	    await newSockInStomach.transform.DOMove(transform.position, duration).ToUniTask(cancellationToken: animCtsToken);
 	}
 
 	public async UniTask CompleteSlotAsync(StomachSlotData emptyTinyCreaturePrefab, CancellationToken cancellationToken)

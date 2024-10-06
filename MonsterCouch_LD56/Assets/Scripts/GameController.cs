@@ -19,12 +19,13 @@ public class GameController : MonoBehaviour
 	
 	[Space]
 	[SerializeField] private List<LevelData> _levels;
+	[SerializeField] private bool _skipTutorial;
 
 	private LevelUndoSystem _undoSystem = new();
 	
 	private int _currentLevelIndex = 0;
-	
-	
+
+
 	public void MakeSaveForUndo()
 	{
 		_undoSystem.SaveState(new GameState(
@@ -83,7 +84,14 @@ public class GameController : MonoBehaviour
 		}
 
 
-		StartGame().Forget();
+		if (_skipTutorial)
+		{
+			Initialize();
+		}
+		else
+		{
+			StartGame().Forget();
+		}
 	}
 
 	private async UniTaskVoid StartGame()

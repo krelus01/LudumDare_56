@@ -11,6 +11,7 @@ public class StomachController : MonoBehaviour
 	private const int ROW_SIZE = 5;
 	private const int COLUMN_SIZE = 5;
 
+	[SerializeField] private Transform _stomachSpawnPoint;
 	[SerializeField] private List<StomachSlotController> _stomachSlots;
 	[Space]
 	[SerializeField] private StomachSlotData _emptyTinyCreaturePrefab;
@@ -73,7 +74,7 @@ public class StomachController : MonoBehaviour
 		CompleteThreeOfAKind(_animCts.Token).Forget();
 	}
 	
-	public void AddSockToStomach(SockType roomPointType)
+	public async UniTaskVoid AddSockToStomach(SockType roomPointType)
 	{
 		CheckPotentialGameOver();
 		
@@ -90,7 +91,7 @@ public class StomachController : MonoBehaviour
 					_ => throw new ArgumentOutOfRangeException()
 				};
 				
-				_stomachSlots[index].SetSock(stomachslotData);
+				await _stomachSlots[index].SetSock(stomachslotData, _stomachSpawnPoint, _animCts.Token);
 				break;
 			}
 		}
