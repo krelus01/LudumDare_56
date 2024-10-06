@@ -122,7 +122,12 @@ public class StomachController : MonoBehaviour
 	private async UniTask CompleteThreeOfAKind(CancellationToken animCtsToken)
 	{
 		List<StomachSlotController> matchedSlots = FindThreeOrMoreOfAKind();
-	
+
+		if (matchedSlots.Count == 0)
+		{
+			return;
+		}
+		
 		List<UniTask> tasks = new();
 		foreach (StomachSlotController slot in matchedSlots)
 		{
@@ -131,6 +136,7 @@ public class StomachController : MonoBehaviour
 		
 		InputManager.Instance.BlockMovement();
 		
+		SoundManager.Instance.PlayEffect(AudioClipType.SocksMatched);
 		await UniTask.WhenAll(tasks);
 	
 		await MoveElementsDown();

@@ -7,6 +7,8 @@ public class AudioLibrary : MonoBehaviour
 
 	[SerializeField] private AudioClip _backgroundMusic;
 	[SerializeField] private AudioClip _couchEatsSock;
+	[SerializeField] private AudioClip _couchMoving;
+	[SerializeField] private AudioClip _socksMatched;
 
 	private Dictionary<AudioClipType, AudioClip> _audioClips;
 
@@ -30,7 +32,8 @@ public class AudioLibrary : MonoBehaviour
 		{
 			{ AudioClipType.BackgroundMusic, _backgroundMusic },
 			{ AudioClipType.CouchEatsSock, _couchEatsSock },
-			// Add other audio clips to the dictionary here
+			{ AudioClipType.CouchMoving, _couchMoving },
+			{ AudioClipType.SocksMatched, _socksMatched }
 		};
 	}
 
@@ -44,4 +47,6 @@ public enum AudioClipType
 {
 	BackgroundMusic,
     CouchEatsSock,
+	CouchMoving,
+	SocksMatched
 }

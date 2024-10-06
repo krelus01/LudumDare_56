@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
+	[SerializeField] private GameObject _tutorialPanel;
+	
 	[SerializeField] private TutorialControlPanelController _leftButtonPanel;
 	[SerializeField] private TutorialControlPanelController _rightButtonPanel;
 	[SerializeField] private TutorialControlPanelController _upButtonPanel;
@@ -24,6 +26,7 @@ public class TutorialManager : MonoBehaviour
 		IsFinished = false;
 		
 		gameObject.SetActive(true);
+		_tutorialPanel.SetActive(true);
 		await gameObject.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).ToUniTask();
 		
 		InputManager.Instance.MoveLeft += () => PressLeft().Forget();
@@ -90,6 +93,7 @@ public class TutorialManager : MonoBehaviour
 			await UniTask.Delay(1000);
 			await gameObject.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack).ToUniTask();
 			gameObject.SetActive(false);
+			_tutorialPanel.SetActive(false);
 			IsFinished = true;
 		}
 	}

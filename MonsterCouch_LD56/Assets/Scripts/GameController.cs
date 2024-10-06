@@ -27,6 +27,18 @@ public class GameController : MonoBehaviour
 	private bool _isGameOverOrCompleted = false;
 
 
+	public void StartGame()
+	{
+		if (_skipTutorial)
+		{
+			Initialize();
+		}
+		else
+		{
+			StartGameWithTutorial().Forget();
+		}
+	}
+	
 	public void MakeSaveForUndo()
 	{
 		_undoSystem.SaveState(new GameState(
@@ -99,21 +111,12 @@ public class GameController : MonoBehaviour
 		else
 		{
 			Instance = this;
+			SoundManager.Instance.PlayMusic(AudioClipType.BackgroundMusic);
 			DontDestroyOnLoad(gameObject);
-		}
-
-
-		if (_skipTutorial)
-		{
-			Initialize();
-		}
-		else
-		{
-			StartGame().Forget();
 		}
 	}
 
-	private async UniTaskVoid StartGame()
+	private async UniTaskVoid StartGameWithTutorial()
 	{
 		await _tutorialManager.ShowTutorial();
 		
