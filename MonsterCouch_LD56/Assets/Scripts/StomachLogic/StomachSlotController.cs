@@ -13,7 +13,6 @@ public class StomachSlotController : MonoBehaviour
 
 	public int Id => _slotId;
 	public bool IsEmpty => _stomachSlotData.SockType == StomachSockType.Empty;
-	public List<StomachSlotController> Neighbours => _neighbours;
 	public StomachSockType SockType => _stomachSlotData.SockType;
 
 	public void Initialize(StomachSlotData stomachSlot)

@@ -18,7 +18,10 @@ public class SocksInRoomController : MonoBehaviour
 	    Vector3 startPosition = transform.position;
 	    float amplitude = 0.1f;
 	    float frequency = 1f;
-	
+		
+		float randomDelay = Random.Range(0f, 10f);
+		await UniTask.Delay((int)(randomDelay * 100), cancellationToken: ctsToken);
+		
 	    await transform.DOMoveY(startPosition.y + amplitude, frequency)
 	        .SetLoops(-1, LoopType.Yoyo)
 	        .SetEase(Ease.InOutSine)
