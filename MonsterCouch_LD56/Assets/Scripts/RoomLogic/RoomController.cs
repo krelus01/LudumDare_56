@@ -98,23 +98,39 @@ public class RoomController : MonoBehaviour
 		return new Vector2Int(_playerCurrentRow, _playerCurrentPointInRow);
 	}
 	
+	public Transform SetPosition(Vector2Int statePlayerPosition)
+	{
+		_playerCurrentRow = statePlayerPosition.x;
+		_playerCurrentPointInRow = statePlayerPosition.y;
+
+		return PlacePlayer(_playerCurrentRow, _playerCurrentPointInRow);
+	}
+	
 	public RoomData GetRoomData()
 	{
-		RoomData roomData = ScriptableObject.CreateInstance<RoomData>();
+		RoomData newRoomData = ScriptableObject.CreateInstance<RoomData>();
+		newRoomData.RoomRows = new List<RoomRowData>();
 		
 		foreach (KeyValuePair<int, RoomRow> roomRow in _roomRows)
 		{
-			RoomRowData roomRowData = ScriptableObject.CreateInstance<RoomRowData>();
+			RoomRowData newRoomRowData = ScriptableObject.CreateInstance<RoomRowData>();
+			newRoomRowData.RoomGridPoints = new List<RoomPointData>();
 			
 			foreach (KeyValuePair<int, RoomGridPoint> roomPoint in roomRow.Value.GetRoomGridPoints())
 			{
-				roomRowData.RoomGridPoints.Add(roomPoint.Value.GetRoomPointData());
+				newRoomRowData.RoomGridPoints.Add(roomPoint.Value.GetRoomPointData());
 			}
 			
-			roomData.RoomRows.Add(roomRowData);
+			newRoomData.RoomRows.Insert(0, newRoomRowData);
 		}
 		
-		return roomData;
+		return newRoomData;
+	}
+	
+	public void SetRoomData(RoomData stateRoomData)
+	{
+		Clear();
+		Initialize(stateRoomData);
 	}
 	
 	

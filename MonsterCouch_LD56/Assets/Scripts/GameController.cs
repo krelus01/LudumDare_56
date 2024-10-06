@@ -82,6 +82,7 @@ public class GameController : MonoBehaviour
 	private void Initialize()
 	{
 		InputManager.Instance.RestartLevel += RestartLevel;
+		InputManager.Instance.UndoMove += UndoMove;
 		
 		LevelData levelData = _levels[_currentLevelIndex];
 		
@@ -94,11 +95,29 @@ public class GameController : MonoBehaviour
 		_playerController.Initialize(startingPosition);
 	}
 
+	private void UndoMove()
+	{
+		GameState state = _undoSystem.GetUndoState();
+		if (state == null)
+		{
+			return;
+		}
+		
+		_roomController.SetRoomData(state.RoomData);
+		Transform undoPlayerPosition = _roomController.SetPosition(state.PlayerPosition);
+		_stomachController.SetStomachSlots(state.StomachSlots);
+		_playerController.SetPositionAndDirection(undoPlayerPosition, state.PlayerDirection);
+	}
+
 	private void RestartLevel()
 	{
+		InputManager.Instance.RestartLevel -= RestartLevel;
+		InputManager.Instance.UndoMove -= UndoMove;
+		
 		_roomController.Clear();
 		_stomachController.Clear();
 		_playerController.Clear();
+		_undoSystem.Clear();
 		InputManager.Instance.Clear();
 		Initialize();
 	}
@@ -113,7 +132,7 @@ public class LevelUndoSystem
 		_states.Push(state);
 	}
 	
-	public GameState Undo()
+	public GameState GetUndoState()
 	{
 		if (_states.Count == 0)
 		{

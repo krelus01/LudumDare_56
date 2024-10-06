@@ -36,15 +36,20 @@ public class StomachController : MonoBehaviour
 
 	public void Initialize(StomachData stomachData)
 	{
+		Initialize(stomachData.StomachSlots);
+	}
+
+	private void Initialize(List<StomachSlotData> stomachSlots)
+	{
 		InputManager.Instance.MoveUp += () => Moved(MoveDirection.Up);
 		InputManager.Instance.MoveLeft += () => Moved(MoveDirection.Left);
 		InputManager.Instance.MoveRight += () => Moved(MoveDirection.Right);
 
 		RecognizeNeighbours(ROW_SIZE, COLUMN_SIZE);
 
-		for (int i = 0; i < stomachData.StomachSlots.Count; i++)
+		for (int i = 0; i < stomachSlots.Count; i++)
 		{
-			_stomachSlots[i].Initialize(stomachData.StomachSlots[i]);
+			_stomachSlots[i].Initialize(stomachSlots[i]);
 		}
 	}
 	
@@ -97,6 +102,12 @@ public class StomachController : MonoBehaviour
 
 		return stomachSlots;
 	}
+	
+	public void SetStomachSlots(List<StomachSlotData> stateStomachSlots)
+	{
+		Clear();
+		Initialize(stateStomachSlots);
+	}
 
 
 	private async UniTask CompleteThreeOfAKind(CancellationToken animCtsToken)
@@ -108,11 +119,8 @@ public class StomachController : MonoBehaviour
 		{
 		    tasks.Add(slot.CompleteSlotAsync(_emptyTinyCreaturePrefab, animCtsToken));
 		}
-
-		if (InputManager.Instance.IsMovementBlocked == false)
-		{
-			InputManager.Instance.BlockMovement();
-		}
+		
+		InputManager.Instance.BlockMovement();
 		
 		await UniTask.WhenAll(tasks);
 	

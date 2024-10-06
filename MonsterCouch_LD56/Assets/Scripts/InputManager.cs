@@ -30,6 +30,7 @@ public class InputManager : MonoBehaviour
 	public Action MoveLeft;
 	public Action MoveRight;
 	public Action RestartLevel;
+	public Action UndoMove;
 	
 	private Action _backupMoveUp;
 	private Action _backupMoveLeft;
@@ -51,6 +52,11 @@ public class InputManager : MonoBehaviour
 	
 	public void BlockMovement()
 	{
+		if (IsMovementBlocked)
+		{
+			return;
+		}
+		
 		IsMovementBlocked = true;
 		
 		_backupMoveUp = MoveUp;
@@ -88,6 +94,7 @@ public class InputManager : MonoBehaviour
 				{"MoveLeft", () => MoveLeft?.Invoke()},
 				{"MoveRight", () => MoveRight?.Invoke()},
 				{"RestartLevel", () => RestartLevel?.Invoke()},
+				{"Undo", () => UndoMove?.Invoke()},
 			};
 			
 			PlayerInput playerInput = GetComponent<PlayerInput>();

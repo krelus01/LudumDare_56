@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
@@ -29,6 +30,15 @@ public class PlayerController : MonoBehaviour
 		
 		Destroy(gameObject);
 	}
+	
+	public void SetPositionAndDirection(Transform undoPlayerPosition, MoveDirection statePlayerDirection)
+	{
+		gameObject.transform.position = undoPlayerPosition.position;
+		_currentDirection = statePlayerDirection;
+		RotateTowardsDirection(_currentDirection);
+	}
+	
+	
 	
 	private void Move(MoveDirection direction)
 	{
@@ -80,9 +90,11 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	private void MoveToTransform(Transform targetTransform)
+	private async UniTask MoveToTransform(Transform targetTransform)
 	{
-	    gameObject.transform.DOMove(targetTransform.position, 0.5f);
+		InputManager.Instance.BlockMovement();
+		await gameObject.transform.DOMove(targetTransform.position, 0.35f).AsyncWaitForCompletion();
+		InputManager.Instance.UnblockMovement();
 	}
 }
 

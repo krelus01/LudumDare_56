@@ -77,6 +77,11 @@ public class StomachSlotController : MonoBehaviour
 	{
 		_stomachSlotData = stomachSlot;
 		
+		if (stomachSlot.SockType == StomachSockType.Empty)
+		{
+			return;
+		}
+		
 		Instantiate(stomachSlot.StomachElementPrefab, transform);
 	}
 
