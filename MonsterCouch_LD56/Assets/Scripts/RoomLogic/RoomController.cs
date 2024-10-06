@@ -142,7 +142,6 @@ public class RoomController : MonoBehaviour
 			
 			roomPoint.Consume();
 			await StomachController.Instance.AddSockToStomach(roomTypeToAdd);
-			SoundManager.Instance.PlayEffect(AudioClipType.CouchEatsSock);
 		}
 		
 		GameOverIfEverySockIsConsumed();

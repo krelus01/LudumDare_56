@@ -48,6 +48,7 @@ MonoBehaviour:
   _rotationEase: 1
   _rotationDuration: 0.75
   _couchVisuals: {fileID: 3144644176192444085}
+  _animator: {fileID: 1076031704144789847}
 --- !u!1 &6457741924931003108
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +246,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e03adcc18b6f8a499aa2197b292bdb9, type: 3}
+--- !u!95 &1076031704144789847 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 5e03adcc18b6f8a499aa2197b292bdb9, type: 3}
+  m_PrefabInstance: {fileID: 6882697099484036294}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6345283763221961517 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5e03adcc18b6f8a499aa2197b292bdb9, type: 3}

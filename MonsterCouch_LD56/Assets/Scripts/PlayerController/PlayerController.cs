@@ -5,9 +5,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+	private static readonly int couchEats = Animator.StringToHash("CouchEats");
+	
 	[SerializeField] private Ease _rotationEase = Ease.Linear;
 	[SerializeField] private float _rotationDuration = 0.75f;
 	[SerializeField] private Transform _couchVisuals;
+	
+	[Space]
+	[SerializeField] private Animator _animator;
 	
 	private MoveDirection _currentDirection = MoveDirection.Up;
 	
@@ -73,6 +78,14 @@ public class PlayerController : MonoBehaviour
 		SoundManager.Instance.PlayEffect(AudioClipType.CouchMoving);
 		await StomachController.Instance.PlayerMoved(direction);
 		RoomGridPoint gridPoint = RoomController.Instance.MovePlayer(_currentDirection);
+
+		if (gridPoint.RoomPointData.RoomPointType != SockType.Empty && gridPoint.RoomPointData.RoomPointType != SockType.Wall)
+		{
+			_animator.SetTrigger(couchEats);
+			SoundManager.Instance.PlayEffect(AudioClipType.CouchEatsSock);
+			await UniTask.Delay(250);
+		}
+		
 		await UniTask.WhenAll(RoomController.Instance.ConsumeSockFrom3d(gridPoint), MoveToTransform(gridPoint.GetRoomPointTransform()));
 		
 		InputManager.Instance.UnblockMovement();
