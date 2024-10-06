@@ -42,6 +42,8 @@ public class PlayerController : MonoBehaviour
 	
 	private async UniTaskVoid Move(MoveDirection direction)
 	{
+		InputManager.Instance.BlockMovement();
+		
 		GameController.Instance.MakeSaveForUndo();
 		
 		if (direction == MoveDirection.Left)
@@ -70,7 +72,10 @@ public class PlayerController : MonoBehaviour
 		RotateTowardsDirection(_currentDirection);
 		SoundManager.Instance.PlayEffect(AudioClipType.CouchMoving);
 		await StomachController.Instance.PlayerMoved(direction);
-		await MoveToTransform(RoomController.Instance.MovePlayer(_currentDirection));
+		RoomGridPoint gridPoint = RoomController.Instance.MovePlayer(_currentDirection);
+		await UniTask.WhenAll(RoomController.Instance.ConsumeSockFrom3d(gridPoint), MoveToTransform(gridPoint.GetRoomPointTransform()));
+		
+		InputManager.Instance.UnblockMovement();
 	}
 
 	private void RotateTowardsDirection(MoveDirection direction)
@@ -94,9 +99,7 @@ public class PlayerController : MonoBehaviour
 
 	private async UniTask MoveToTransform(Transform targetTransform)
 	{
-		InputManager.Instance.BlockMovement();
 		await gameObject.transform.DOMove(targetTransform.position, 0.35f).AsyncWaitForCompletion();
-		InputManager.Instance.UnblockMovement();
 	}
 }
 

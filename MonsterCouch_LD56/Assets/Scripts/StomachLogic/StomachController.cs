@@ -74,7 +74,7 @@ public class StomachController : MonoBehaviour
 		CompleteThreeOfAKind(_animCts.Token).Forget();
 	}
 	
-	public async UniTaskVoid AddSockToStomach(SockType roomPointType)
+	public async UniTask AddSockToStomach(SockType roomPointType)
 	{
 		CheckPotentialGameOver();
 		
@@ -97,8 +97,8 @@ public class StomachController : MonoBehaviour
 		}
 
 		ResetCts();
-		
-		CompleteThreeOfAKind(_animCts.Token).Forget();
+
+		await CompleteThreeOfAKind(_animCts.Token);
 	}
 
 	public List<StomachSlotData> GetStomachSlots()
@@ -138,7 +138,7 @@ public class StomachController : MonoBehaviour
 		
 		SoundManager.Instance.PlayEffect(AudioClipType.SocksMatched);
 		await UniTask.WhenAll(tasks);
-	
+		
 		await MoveElementsDown();
 		
 		InputManager.Instance.UnblockMovement();
@@ -180,6 +180,8 @@ public class StomachController : MonoBehaviour
 
 					if (targetIndex != -1)
 					{
+						ResetCts();
+						
 						await _stomachSlots[targetIndex].MoveElementFrom(_stomachSlots[index], _animCts.Token);
 						moved = true;
 					}
