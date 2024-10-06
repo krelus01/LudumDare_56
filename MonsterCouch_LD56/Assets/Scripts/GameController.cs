@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
 	public static GameController Instance;
 	
 	[SerializeField] private GameEndPanel _gameEndPanel;
+	[SerializeField] private TutorialManager _tutorialManager;
 	
 	[Space]
 	[SerializeField] private RoomController _roomController;
@@ -47,6 +48,8 @@ public class GameController : MonoBehaviour
 	
 	public async UniTaskVoid LevelCompleted()
 	{
+		InputManager.Instance.BlockMovement();
+		
 		_gameEndPanel.ShowLevelCompleted();
 		
 		await UniTask.Delay(2000);
@@ -59,6 +62,8 @@ public class GameController : MonoBehaviour
 			_gameEndPanel.ShowGameBeaten();
 			return;
 		}
+		
+		InputManager.Instance.UnblockMovement();
 		
 		RestartLevel();
 	}
@@ -76,8 +81,29 @@ public class GameController : MonoBehaviour
 			Instance = this;
 			DontDestroyOnLoad(gameObject);
 		}
+
+
+		StartGame().Forget();
+	}
+
+	private async UniTaskVoid StartGame()
+	{
+		await _tutorialManager.ShowTutorial();
 		
-		Initialize();
+		LevelData levelData = _levels[_currentLevelIndex];
+		
+		_roomController.Initialize(levelData.Room);
+		Transform startingPosition = _roomController.PlacePlayer(levelData);
+		
+		_stomachController.Initialize(levelData.Stomach);
+		
+		await UniTask.WaitUntil(() => _tutorialManager.IsFinished);
+		
+		InputManager.Instance.RestartLevel += RestartLevel;
+		InputManager.Instance.UndoMove += UndoMove;
+		
+		_playerController = Instantiate(_playerPrefab).GetComponent<PlayerController>();
+		_playerController.Initialize(startingPosition);
 	}
 
 	private void Initialize()
