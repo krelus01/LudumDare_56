@@ -20,7 +20,7 @@ public class StomachController : MonoBehaviour
 	[SerializeField] private StomachSlotData _greenTinyCreaturePrefab;
 
 	
-	private CancellationTokenSource _animCts;
+	private CancellationTokenSource _animCts = new();
 	
 	private void Awake()
 	{
@@ -58,15 +58,15 @@ public class StomachController : MonoBehaviour
 		}
 	}
 
-	public void PlayerMoved(MoveDirection direction)
+	public async UniTask PlayerMoved(MoveDirection direction)
 	{
 		if (direction == MoveDirection.Right)
 		{
-			MoveElementsToMostRight();
+			await MoveElementsToMostRight();
 		}
 		else if (direction == MoveDirection.Left)
 		{
-			MoveElementsToMostLeft();
+			await MoveElementsToMostLeft();
 		}
 		
 		ResetCts();
@@ -174,7 +174,7 @@ public class StomachController : MonoBehaviour
 
 					if (targetIndex != -1)
 					{
-						_stomachSlots[targetIndex].MoveElementFrom(_stomachSlots[index]);
+						await _stomachSlots[targetIndex].MoveElementFrom(_stomachSlots[index], _animCts.Token);
 						moved = true;
 					}
 				}
@@ -255,7 +255,7 @@ public class StomachController : MonoBehaviour
 	
 	
 
-	private void MoveElementsToMostRight()
+	private async UniTask MoveElementsToMostRight()
 	{
 		for (int row = 0; row < ROW_SIZE; row++)
 		{
@@ -269,14 +269,14 @@ public class StomachController : MonoBehaviour
 
 					if (targetIndex != -1)
 					{
-						_stomachSlots[targetIndex].MoveElementFrom(_stomachSlots[index]);
+						await _stomachSlots[targetIndex].MoveElementFrom(_stomachSlots[index], _animCts.Token);
 					}
 				}
 			}
 		}
 	}
 
-	private void MoveElementsToMostLeft()
+	private async UniTask MoveElementsToMostLeft()
 	{
 		for (int row = 0; row < ROW_SIZE; row++)
 		{
@@ -290,7 +290,7 @@ public class StomachController : MonoBehaviour
 
 					if (targetIndex != -1)
 					{
-						_stomachSlots[targetIndex].MoveElementFrom(_stomachSlots[index]);
+						await _stomachSlots[targetIndex].MoveElementFrom(_stomachSlots[index], _animCts.Token);
 					}
 				}
 			}

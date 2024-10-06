@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
 		}
 		
 		RotateTowardsDirection(_currentDirection);
-		StomachController.Instance.PlayerMoved(direction);
+		await StomachController.Instance.PlayerMoved(direction);
 		await MoveToTransform(RoomController.Instance.MovePlayer(_currentDirection));
 	}
 

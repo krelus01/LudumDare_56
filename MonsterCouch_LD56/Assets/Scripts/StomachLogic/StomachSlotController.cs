@@ -46,7 +46,7 @@ public class StomachSlotController : MonoBehaviour
 		_neighbours = neighbours;
 	}
 	
-	public void MoveElementFrom(StomachSlotController sourceSlot)
+	public async UniTask MoveElementFrom(StomachSlotController sourceSlot, CancellationToken animCtsToken)
 	{
 		// Update the target slot's data with the source slot's data
 		_stomachSlotData = sourceSlot._stomachSlotData;
@@ -64,7 +64,8 @@ public class StomachSlotController : MonoBehaviour
 
 		if (_stomachSlotData.SockType != StomachSockType.Empty)
 		{
-			Instantiate(_stomachSlotData.StomachElementPrefab, transform);
+			GameObject newElement = Instantiate(_stomachSlotData.StomachElementPrefab, sourceSlot.transform.position, Quaternion.identity, transform);
+			await newElement.transform.DOMove(transform.position, 0.05f).ToUniTask(cancellationToken: animCtsToken);
 		}
 
 		foreach (Transform child in sourceSlot.transform)
