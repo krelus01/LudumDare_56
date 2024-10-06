@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class RoomController : MonoBehaviour
@@ -56,7 +57,7 @@ public class RoomController : MonoBehaviour
 		return PlacePlayer(data.PlayerStartingRow, data.PlayerStartingRowPoint);
 	}
 	
-	public Transform MovePlayer(MoveDirection direction)
+	public RoomGridPoint MovePlayer(MoveDirection direction)
 	{
 		switch (direction)
 		{
@@ -88,9 +89,7 @@ public class RoomController : MonoBehaviour
 
 		RoomGridPoint roomPoint = _roomRows[_playerCurrentRow].GetRoomPoint(_playerCurrentPointInRow);
 
-		ConsumeSockFrom3d(roomPoint);
-
-		return roomPoint.GetRoomPointTransform();
+		return roomPoint;
 	}
 
 	
@@ -135,19 +134,21 @@ public class RoomController : MonoBehaviour
 		Initialize(stateRoomData);
 	}
 	
-	
-	private void ConsumeSockFrom3d(RoomGridPoint roomPoint)
+	public async UniTask ConsumeSockFrom3d(RoomGridPoint roomPoint)
 	{
 		if (roomPoint.RoomPointData.RoomPointType != SockType.Empty && roomPoint.RoomPointData.RoomPointType != SockType.Wall)
 		{
-			StomachController.Instance.AddSockToStomach(roomPoint.RoomPointData.RoomPointType);
+			SockType roomTypeToAdd = roomPoint.RoomPointData.RoomPointType;
+			
 			roomPoint.Consume();
+			await StomachController.Instance.AddSockToStomach(roomTypeToAdd);
 			SoundManager.Instance.PlayEffect(AudioClipType.CouchEatsSock);
 		}
 		
 		GameOverIfEverySockIsConsumed();
 	}
 
+	
 	private void GameOverIfEverySockIsConsumed()
 	{
 		foreach (KeyValuePair<int, RoomRow> roomRow in _roomRows)

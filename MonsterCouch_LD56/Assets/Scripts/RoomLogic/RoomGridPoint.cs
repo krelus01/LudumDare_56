@@ -38,7 +38,7 @@ public class RoomGridPoint : MonoBehaviour
 		_roomPointData = ScriptableObject.CreateInstance<RoomPointData>();
 		_roomPointData.RoomPointType = SockType.Empty;
 		
-		var tinyCreatureController = GetComponentInChildren<SocksInRoomController>();
+		SocksInRoomController tinyCreatureController = GetComponentInChildren<SocksInRoomController>();
 		if (tinyCreatureController != null)
 		{
 		    tinyCreatureController.Clear();
