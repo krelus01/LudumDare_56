@@ -41,10 +41,6 @@ public class StomachController : MonoBehaviour
 
 	private void Initialize(List<StomachSlotData> stomachSlots)
 	{
-		InputManager.Instance.MoveUp += () => Moved(MoveDirection.Up);
-		InputManager.Instance.MoveLeft += () => Moved(MoveDirection.Left);
-		InputManager.Instance.MoveRight += () => Moved(MoveDirection.Right);
-
 		RecognizeNeighbours(ROW_SIZE, COLUMN_SIZE);
 
 		for (int i = 0; i < stomachSlots.Count; i++)
@@ -55,16 +51,28 @@ public class StomachController : MonoBehaviour
 	
 	public void Clear()
 	{
-		InputManager.Instance.MoveUp -= () => Moved(MoveDirection.Up);
-		InputManager.Instance.MoveLeft -= () => Moved(MoveDirection.Left);
-		InputManager.Instance.MoveRight -= () => Moved(MoveDirection.Right);
-		
 		foreach (StomachSlotController slot in _stomachSlots)
 		{
 			slot.Clear();
 		}
 	}
 
+	public void PlayerMoved(MoveDirection direction)
+	{
+		if (direction == MoveDirection.Right)
+		{
+			MoveElementsToMostRight();
+		}
+		else if (direction == MoveDirection.Left)
+		{
+			MoveElementsToMostLeft();
+		}
+		
+		ResetCts();
+		
+		CompleteThreeOfAKind(_animCts.Token).Forget();
+	}
+	
 	public void AddSockToStomach(SockType roomPointType)
 	{
 		CheckPotentialGameOver();
@@ -245,22 +253,6 @@ public class StomachController : MonoBehaviour
 	}
 	
 	
-	
-	private void Moved(MoveDirection direction)
-	{
-		if (direction == MoveDirection.Right)
-		{
-			MoveElementsToMostRight();
-		}
-		else if (direction == MoveDirection.Left)
-		{
-			MoveElementsToMostLeft();
-		}
-		
-		ResetCts();
-		
-		CompleteThreeOfAKind(_animCts.Token).Forget();
-	}
 
 	private void MoveElementsToMostRight()
 	{

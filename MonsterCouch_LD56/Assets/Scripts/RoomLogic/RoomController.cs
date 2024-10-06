@@ -58,8 +58,6 @@ public class RoomController : MonoBehaviour
 	
 	public Transform MovePlayer(MoveDirection direction)
 	{
-		GameController.Instance.MakeSaveForUndo();
-		
 		switch (direction)
 		{
 			case MoveDirection.Up:

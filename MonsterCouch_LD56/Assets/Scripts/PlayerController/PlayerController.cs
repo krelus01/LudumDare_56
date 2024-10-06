@@ -12,21 +12,21 @@ public class PlayerController : MonoBehaviour
 	private MoveDirection _currentDirection = MoveDirection.Up;
 	
 	public MoveDirection CurrentDirection => _currentDirection;
-	
+
 	public void Initialize(Transform startingPosition)
 	{
 		gameObject.transform.position = startingPosition.position;
-		
-		InputManager.Instance.MoveUp += () => Move(MoveDirection.Up);
-		InputManager.Instance.MoveLeft += () => Move(MoveDirection.Left);
-		InputManager.Instance.MoveRight += () => Move(MoveDirection.Right);
+
+		InputManager.Instance.MoveUp += () => Move(MoveDirection.Up).Forget();
+		InputManager.Instance.MoveLeft += () => Move(MoveDirection.Left).Forget();
+		InputManager.Instance.MoveRight += () => Move(MoveDirection.Right).Forget();
 	}
 
 	public void Clear()
 	{
-		InputManager.Instance.MoveUp -= () => Move(MoveDirection.Up);
-		InputManager.Instance.MoveLeft -= () => Move(MoveDirection.Left);
-		InputManager.Instance.MoveRight -= () => Move(MoveDirection.Right);
+		InputManager.Instance.MoveUp -= () => Move(MoveDirection.Up).Forget();
+		InputManager.Instance.MoveLeft -= () => Move(MoveDirection.Left).Forget();
+		InputManager.Instance.MoveRight -= () => Move(MoveDirection.Right).Forget();
 		
 		Destroy(gameObject);
 	}
@@ -40,10 +40,10 @@ public class PlayerController : MonoBehaviour
 	
 	
 	
-	private void Move(MoveDirection direction)
+	private async UniTaskVoid Move(MoveDirection direction)
 	{
-		Debug.Log("Move" + direction);
-
+		GameController.Instance.MakeSaveForUndo();
+		
 		if (direction == MoveDirection.Left)
 		{
 			_currentDirection = _currentDirection switch
@@ -68,7 +68,8 @@ public class PlayerController : MonoBehaviour
 		}
 		
 		RotateTowardsDirection(_currentDirection);
-		MoveToTransform(RoomController.Instance.MovePlayer(_currentDirection));
+		StomachController.Instance.PlayerMoved(direction);
+		await MoveToTransform(RoomController.Instance.MovePlayer(_currentDirection));
 	}
 
 	private void RotateTowardsDirection(MoveDirection direction)
