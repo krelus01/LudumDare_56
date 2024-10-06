@@ -10,6 +10,8 @@ public class RoomController : MonoBehaviour
 	private int _playerCurrentRow;
 	private int _playerCurrentPointInRow;
 	
+	private bool _allSocksConsumed = false;
+	
 	private void Awake()
 	{
 		if (Instance != null && Instance != this)
@@ -39,6 +41,8 @@ public class RoomController : MonoBehaviour
 	
 	public void Clear()
 	{
+		_allSocksConsumed = false;
+		
 		foreach (KeyValuePair<int,RoomRow> roomRow in _roomRows)
 		{
 			roomRow.Value.Clear();
@@ -112,8 +116,15 @@ public class RoomController : MonoBehaviour
 				}
 			}
 		}
-		
-		GameController.Instance.GameOver();
+
+		if (_allSocksConsumed)
+		{
+			GameController.Instance.GameOver();
+		}
+		else
+		{
+			_allSocksConsumed = true;
+		}
 	}
 
 	private Transform PlacePlayer(int row, int pointInRow)
