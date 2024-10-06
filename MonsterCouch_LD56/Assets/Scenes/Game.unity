@@ -6059,9 +6059,9 @@ MonoBehaviour:
   _playerController: {fileID: 0}
   _playerPrefab: {fileID: 3754661477805637558, guid: 2b4684d53b575ec48b0eb0b2f65e9b7f, type: 3}
   _levels:
+  - {fileID: 11400000, guid: f30410bb248f92544818ad58a235cae3, type: 2}
   - {fileID: 11400000, guid: 609acfa0d7a440648b3b8e5a1a6fb1fd, type: 2}
   - {fileID: 11400000, guid: 06dd29039851c0b4fab706bbd19028e0, type: 2}
-  - {fileID: 11400000, guid: f30410bb248f92544818ad58a235cae3, type: 2}
   - {fileID: 11400000, guid: 418ce58142620904f8fd498fb09576e4, type: 2}
   - {fileID: 11400000, guid: 48fe25d764f53c74a9c607380cf5ff3e, type: 2}
   _skipTutorial: 0

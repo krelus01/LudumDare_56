@@ -124,12 +124,13 @@ public class GameController : MonoBehaviour
 		
 		_stomachController.Initialize(levelData.Stomach);
 		
+		_playerController = Instantiate(_playerPrefab).GetComponent<PlayerController>();
+		
 		await UniTask.WaitUntil(() => _tutorialManager.IsFinished);
 		
 		InputManager.Instance.RestartLevel += RestartLevel;
 		InputManager.Instance.UndoMove += UndoMove;
 		
-		_playerController = Instantiate(_playerPrefab).GetComponent<PlayerController>();
 		_playerController.Initialize(startingPosition);
 	}
 
