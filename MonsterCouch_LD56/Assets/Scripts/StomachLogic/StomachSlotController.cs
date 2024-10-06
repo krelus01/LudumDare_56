@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -13,15 +12,14 @@ public class StomachSlotController : MonoBehaviour
 	private StomachSlotData _stomachSlotData;
 
 	public int Id => _slotId;
-	public bool IsEmpty => _stomachSlotData.TinyCreatureType == StomachElementType.Empty;
-	public List<StomachSlotController> Neighbours => _neighbours;
-	public StomachElementType ElementType => _stomachSlotData.TinyCreatureType;
+	public bool IsEmpty => _stomachSlotData.SockType == StomachSockType.Empty;
+	public StomachSockType SockType => _stomachSlotData.SockType;
 
 	public void Initialize(StomachSlotData stomachSlot)
 	{
 		_stomachSlotData = stomachSlot;
 		
-		if (stomachSlot.TinyCreatureType != StomachElementType.Empty)
+		if (stomachSlot.SockType != StomachSockType.Empty)
 		{
 			Instantiate(stomachSlot.StomachElementPrefab, transform);
 		}
@@ -30,7 +28,7 @@ public class StomachSlotController : MonoBehaviour
 	public void Clear()
 	{
 		_stomachSlotData = ScriptableObject.CreateInstance<StomachSlotData>();
-		_stomachSlotData.TinyCreatureType = StomachElementType.Empty;
+		_stomachSlotData.SockType = StomachSockType.Empty;
 		
 		foreach (Transform child in transform)
 		{
@@ -50,7 +48,7 @@ public class StomachSlotController : MonoBehaviour
 
 		// Set the source slot's data to empty
 		StomachSlotData emptySlot = ScriptableObject.CreateInstance<StomachSlotData>();
-		emptySlot.TinyCreatureType = StomachElementType.Empty;
+		emptySlot.SockType = StomachSockType.Empty;
 		sourceSlot._stomachSlotData = emptySlot;
 
 		// Update the visual representation
@@ -59,7 +57,7 @@ public class StomachSlotController : MonoBehaviour
 			Destroy(child.gameObject);
 		}
 
-		if (_stomachSlotData.TinyCreatureType != StomachElementType.Empty)
+		if (_stomachSlotData.SockType != StomachSockType.Empty)
 		{
 			Instantiate(_stomachSlotData.StomachElementPrefab, transform);
 		}
@@ -70,7 +68,7 @@ public class StomachSlotController : MonoBehaviour
 		}
 	}
 
-	public void SetTinyCreature(StomachSlotData stomachSlot)
+	public void SetSock(StomachSlotData stomachSlot)
 	{
 		_stomachSlotData = stomachSlot;
 		

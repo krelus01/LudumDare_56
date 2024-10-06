@@ -37,4 +37,9 @@ public class RoomRow : MonoBehaviour
 	{
 		return _roomGridPoints[pointInRow];
 	}
+
+	public IEnumerable<KeyValuePair<int,RoomGridPoint>> GetRoomGridPoints()
+	{
+		return _roomGridPoints;
+	}
 }

@@ -22,9 +22,14 @@ public class GameController : MonoBehaviour
 	private int _currentLevelIndex = 0;
 
 	
-	public void GameOver()
+	public async UniTaskVoid GameOver()
 	{
 		_gameEndPanel.ShowGameOver();
+		
+		await UniTask.Delay(2000);
+		
+		_gameEndPanel.Hide();
+		
 		RestartLevel();
 	}
 	
@@ -84,5 +89,19 @@ public class GameController : MonoBehaviour
 		_playerController.Clear();
 		InputManager.Instance.Clear();
 		Initialize();
+	}
+}
+
+public class GameState
+{
+	public List<StomachSlotData> StomachSlots { get; private set; }
+	public Vector2Int PlayerPosition { get; private set; }
+	public RoomData RoomData { get; private set; }
+
+	public GameState(List<StomachSlotData> stomachSlots, Vector2Int playerPosition, RoomData roomData)
+	{
+		StomachSlots = new List<StomachSlotData>(stomachSlots);
+		PlayerPosition = playerPosition;
+		RoomData = roomData;
 	}
 }

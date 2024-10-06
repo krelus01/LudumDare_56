@@ -84,18 +84,36 @@ public class RoomController : MonoBehaviour
 
 		RoomGridPoint roomPoint = _roomRows[_playerCurrentRow].GetRoomPoint(_playerCurrentPointInRow);
 
-		ConsumeTinyCreature(roomPoint);
+		ConsumeSockFrom3d(roomPoint);
 
 		return roomPoint.GetRoomPointTransform();
 	}
 
-	private void ConsumeTinyCreature(RoomGridPoint roomPoint)
+	private void ConsumeSockFrom3d(RoomGridPoint roomPoint)
 	{
-		if (roomPoint.RoomPointData.RoomPointType != TinyCreatureType.Empty && roomPoint.RoomPointData.RoomPointType != TinyCreatureType.Wall)
+		if (roomPoint.RoomPointData.RoomPointType != SockType.Empty && roomPoint.RoomPointData.RoomPointType != SockType.Wall)
 		{
-			StomachController.Instance.AddTinyCreature(roomPoint.RoomPointData.RoomPointType);
+			StomachController.Instance.AddSockToStomach(roomPoint.RoomPointData.RoomPointType);
 			roomPoint.Consume();
 		}
+		
+		GameOverIfEverySockIsConsumed();
+	}
+
+	private void GameOverIfEverySockIsConsumed()
+	{
+		foreach (KeyValuePair<int, RoomRow> roomRow in _roomRows)
+		{
+			foreach (KeyValuePair<int, RoomGridPoint> roomPoint in roomRow.Value.GetRoomGridPoints())
+			{
+				if (roomPoint.Value.RoomPointData.RoomPointType != SockType.Empty && roomPoint.Value.RoomPointData.RoomPointType != SockType.Wall)
+				{
+					return;
+				}
+			}
+		}
+		
+		GameController.Instance.GameOver();
 	}
 
 	private Transform PlacePlayer(int row, int pointInRow)

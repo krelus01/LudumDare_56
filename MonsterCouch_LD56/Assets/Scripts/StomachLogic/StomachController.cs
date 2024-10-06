@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 
 public class StomachController : MonoBehaviour
@@ -61,8 +60,10 @@ public class StomachController : MonoBehaviour
 		}
 	}
 
-	public void AddTinyCreature(TinyCreatureType roomPointType)
+	public void AddSockToStomach(SockType roomPointType)
 	{
+		CheckPotentialGameOver();
+		
 		for (int row = ROW_SIZE - 1; row >= 0; row--)
 		{
 			int index = row * COLUMN_SIZE + (COLUMN_SIZE / 2);
@@ -70,13 +71,13 @@ public class StomachController : MonoBehaviour
 			{
 				StomachSlotData stomachslotData = roomPointType switch
 				{
-					TinyCreatureType.RedCreature => _redTinyCreaturePrefab,
-					TinyCreatureType.BlueCreature => _blueTinyCreaturePrefab,
-					TinyCreatureType.GreenCreature => _greenTinyCreaturePrefab,
+					SockType.RedCreature => _redTinyCreaturePrefab,
+					SockType.BlueCreature => _blueTinyCreaturePrefab,
+					SockType.GreenCreature => _greenTinyCreaturePrefab,
 					_ => throw new ArgumentOutOfRangeException()
 				};
 				
-				_stomachSlots[index].SetTinyCreature(stomachslotData);
+				_stomachSlots[index].SetSock(stomachslotData);
 				break;
 			}
 		}
@@ -84,6 +85,16 @@ public class StomachController : MonoBehaviour
 		ResetCts();
 		
 		CompleteThreeOfAKind(_animCts.Token).Forget();
+	}
+
+	private void CheckPotentialGameOver()
+	{
+		if (_stomachSlots[2].IsEmpty)
+		{
+			return;
+		}
+		
+		GameController.Instance.GameOver().Forget();
 	}
 
 
@@ -128,6 +139,8 @@ public class StomachController : MonoBehaviour
 
 	private void MoveElementsDown()
 	{
+		bool moved = false;
+		
 		for (int col = 0; col < COLUMN_SIZE; col++)
 		{
 			for (int row = ROW_SIZE - 1; row >= 0; row--)
@@ -141,10 +154,16 @@ public class StomachController : MonoBehaviour
 					if (targetIndex != -1)
 					{
 						_stomachSlots[targetIndex].MoveElementFrom(_stomachSlots[index]);
+						moved = true;
 					}
 				}
 			}
 		}
+
+		if (!moved) return;
+
+		ResetCts();
+		CompleteThreeOfAKind(_animCts.Token).Forget();
 	}
 
 	private int FindLowestEmptySlot(int col, int startRow)
@@ -173,8 +192,8 @@ public class StomachController : MonoBehaviour
 			{
 				int index = row * COLUMN_SIZE + col;
 				if (!_stomachSlots[index].IsEmpty &&
-					_stomachSlots[index].ElementType == _stomachSlots[index + 1].ElementType &&
-					_stomachSlots[index].ElementType == _stomachSlots[index + 2].ElementType)
+					_stomachSlots[index].SockType == _stomachSlots[index + 1].SockType &&
+					_stomachSlots[index].SockType == _stomachSlots[index + 2].SockType)
 				{
 					matchedSlots.Add(_stomachSlots[index]);
 					matchedSlots.Add(_stomachSlots[index + 1]);
@@ -190,8 +209,8 @@ public class StomachController : MonoBehaviour
 			{
 				int index = row * COLUMN_SIZE + col;
 				if (!_stomachSlots[index].IsEmpty &&
-					_stomachSlots[index].ElementType == _stomachSlots[index + COLUMN_SIZE].ElementType &&
-					_stomachSlots[index].ElementType == _stomachSlots[index + 2 * COLUMN_SIZE].ElementType)
+					_stomachSlots[index].SockType == _stomachSlots[index + COLUMN_SIZE].SockType &&
+					_stomachSlots[index].SockType == _stomachSlots[index + 2 * COLUMN_SIZE].SockType)
 				{
 					matchedSlots.Add(_stomachSlots[index]);
 					matchedSlots.Add(_stomachSlots[index + COLUMN_SIZE]);

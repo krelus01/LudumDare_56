@@ -3,11 +3,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Create RoomPointData", fileName = "RoomPointData", order = 0)]
 public class RoomPointData : ScriptableObject
 {
-	public TinyCreatureType RoomPointType;
+	public SockType RoomPointType;
 	public GameObject RoomPointPrefab;
 }
 
-public enum TinyCreatureType
+public enum SockType
 {
 	Empty,
 	Wall,
