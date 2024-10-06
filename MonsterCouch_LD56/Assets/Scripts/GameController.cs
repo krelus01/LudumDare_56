@@ -19,8 +19,20 @@ public class GameController : MonoBehaviour
 	[Space]
 	[SerializeField] private List<LevelData> _levels;
 
+	private LevelUndoSystem _undoSystem = new();
+	
 	private int _currentLevelIndex = 0;
-
+	
+	
+	public void MakeSaveForUndo()
+	{
+		_undoSystem.SaveState(new GameState(
+		    _stomachController.GetStomachSlots(),
+			_roomController.GetPlayerPosition(),
+		    _playerController.CurrentDirection, 
+		    _roomController.GetRoomData()
+		));
+	}
 	
 	public async UniTaskVoid GameOver()
 	{
@@ -92,16 +104,43 @@ public class GameController : MonoBehaviour
 	}
 }
 
+public class LevelUndoSystem
+{
+	private Stack<GameState> _states = new();
+	
+	public void SaveState(GameState state)
+	{
+		_states.Push(state);
+	}
+	
+	public GameState Undo()
+	{
+		if (_states.Count == 0)
+		{
+			return null;
+		}
+		
+		return _states.Pop();
+	}
+	
+	public void Clear()
+	{
+		_states.Clear();
+	}
+}
+
 public class GameState
 {
 	public List<StomachSlotData> StomachSlots { get; private set; }
 	public Vector2Int PlayerPosition { get; private set; }
+	public MoveDirection PlayerDirection { get; private set; }
 	public RoomData RoomData { get; private set; }
 
-	public GameState(List<StomachSlotData> stomachSlots, Vector2Int playerPosition, RoomData roomData)
+	public GameState(List<StomachSlotData> stomachSlots, Vector2Int playerPosition, MoveDirection playerDirection, RoomData roomData)
 	{
 		StomachSlots = new List<StomachSlotData>(stomachSlots);
 		PlayerPosition = playerPosition;
+		PlayerDirection = playerDirection;
 		RoomData = roomData;
 	}
 }

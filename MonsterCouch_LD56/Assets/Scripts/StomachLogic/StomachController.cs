@@ -87,14 +87,15 @@ public class StomachController : MonoBehaviour
 		CompleteThreeOfAKind(_animCts.Token).Forget();
 	}
 
-	private void CheckPotentialGameOver()
+	public List<StomachSlotData> GetStomachSlots()
 	{
-		if (_stomachSlots[2].IsEmpty)
+		List<StomachSlotData> stomachSlots = new();
+		foreach (StomachSlotController slot in _stomachSlots)
 		{
-			return;
+			stomachSlots.Add(slot.GetStomachSlotData());
 		}
-		
-		GameController.Instance.GameOver().Forget();
+
+		return stomachSlots;
 	}
 
 
@@ -220,6 +221,16 @@ public class StomachController : MonoBehaviour
 		}
 	
 		return matchedSlots;
+	}
+	
+	private void CheckPotentialGameOver()
+	{
+		if (_stomachSlots[2].IsEmpty)
+		{
+			return;
+		}
+		
+		GameController.Instance.GameOver().Forget();
 	}
 	
 	

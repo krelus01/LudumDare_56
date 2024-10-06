@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
 	
 	private MoveDirection _currentDirection = MoveDirection.Up;
 	
+	public MoveDirection CurrentDirection => _currentDirection;
+	
 	public void Initialize(Transform startingPosition)
 	{
 		gameObject.transform.position = startingPosition.position;

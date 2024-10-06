@@ -36,6 +36,11 @@ public class StomachSlotController : MonoBehaviour
 		}
 	}
 	
+	public StomachSlotData GetStomachSlotData()
+	{
+		return _stomachSlotData;
+	}
+	
 	public void SetNeighbours(List<StomachSlotController> neighbours)
 	{
 		_neighbours = neighbours;

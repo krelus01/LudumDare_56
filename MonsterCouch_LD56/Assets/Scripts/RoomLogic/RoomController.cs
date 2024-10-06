@@ -54,6 +54,8 @@ public class RoomController : MonoBehaviour
 	
 	public Transform MovePlayer(MoveDirection direction)
 	{
+		GameController.Instance.MakeSaveForUndo();
+		
 		switch (direction)
 		{
 			case MoveDirection.Up:
@@ -89,6 +91,33 @@ public class RoomController : MonoBehaviour
 		return roomPoint.GetRoomPointTransform();
 	}
 
+	
+	
+	public Vector2Int GetPlayerPosition()
+	{
+		return new Vector2Int(_playerCurrentRow, _playerCurrentPointInRow);
+	}
+	
+	public RoomData GetRoomData()
+	{
+		RoomData roomData = ScriptableObject.CreateInstance<RoomData>();
+		
+		foreach (KeyValuePair<int, RoomRow> roomRow in _roomRows)
+		{
+			RoomRowData roomRowData = ScriptableObject.CreateInstance<RoomRowData>();
+			
+			foreach (KeyValuePair<int, RoomGridPoint> roomPoint in roomRow.Value.GetRoomGridPoints())
+			{
+				roomRowData.RoomGridPoints.Add(roomPoint.Value.GetRoomPointData());
+			}
+			
+			roomData.RoomRows.Add(roomRowData);
+		}
+		
+		return roomData;
+	}
+	
+	
 	private void ConsumeSockFrom3d(RoomGridPoint roomPoint)
 	{
 		if (roomPoint.RoomPointData.RoomPointType != SockType.Empty && roomPoint.RoomPointData.RoomPointType != SockType.Wall)
