@@ -71,7 +71,7 @@ public class StomachController : MonoBehaviour
 		
 		ResetCts();
 		
-		CompleteThreeOfAKind(_animCts.Token).Forget();
+		await CompleteThreeOfAKind(_animCts.Token);
 	}
 	
 	public async UniTask AddSockToStomach(SockType roomPointType)
@@ -258,7 +258,7 @@ public class StomachController : MonoBehaviour
 			return;
 		}
 		
-		GameController.Instance.GameOver().Forget();
+		GameController.Instance.GameOver("You ate too much at once!").Forget();
 	}
 	
 	

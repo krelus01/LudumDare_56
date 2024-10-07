@@ -163,7 +163,7 @@ public class RoomController : MonoBehaviour
 
 		if (_allSocksConsumed)
 		{
-			GameController.Instance.GameOver();
+			GameController.Instance.GameOver("You have consumed all the socks, but stomach is not cleared!");
 		}
 		else
 		{

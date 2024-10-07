@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour
 		));
 	}
 	
-	public async UniTaskVoid GameOver()
+	public async UniTaskVoid GameOver(string message)
 	{
 		if (_isGameOverOrCompleted)
 		{
@@ -60,7 +60,7 @@ public class GameController : MonoBehaviour
 		
 		InputManager.Instance.BlockMovement();
 		
-		_gameEndPanel.ShowGameOver();
+		_gameEndPanel.ShowGameOver(message);
 		
 		await UniTask.Delay(2000);
 		

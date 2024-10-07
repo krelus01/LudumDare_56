@@ -5,11 +5,16 @@ internal class GameEndPanel : MonoBehaviour
 {
 	[SerializeField] private TextMeshProUGUI _gameEndText;
 	[SerializeField] private TextMeshProUGUI _leveCompletedText;
-	[SerializeField] private TextMeshProUGUI _gameBeatedText;
+	[SerializeField] private TextMeshProUGUI _gameBeatenText;
+
+	private string nominalLoseText = "Too bad!\nTry again...";
 	
-	public void ShowGameOver()
+	public void ShowGameOver(string message)
 	{
 		gameObject.SetActive(true);
+		
+		_gameEndText.text = nominalLoseText + "\n\n" + message;
+		
 		_gameEndText.gameObject.SetActive(true);
 	}
 	
@@ -24,12 +29,12 @@ internal class GameEndPanel : MonoBehaviour
 		gameObject.SetActive(false);
 		_gameEndText.gameObject.SetActive(false);
 		_leveCompletedText.gameObject.SetActive(false);
-		_gameBeatedText.gameObject.SetActive(false);
+		_gameBeatenText.gameObject.SetActive(false);
 	}
 
 	public void ShowGameBeaten()
 	{
 		gameObject.SetActive(true);
-		_gameBeatedText.gameObject.SetActive(true);
+		_gameBeatenText.gameObject.SetActive(true);
 	}
 }

@@ -4419,6 +4419,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1074517318857019378, guid: 16a1a561ade1348408f50152ef3e082f, type: 3}
+      propertyPath: m_Color.a
+      value: 0.9607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169225381207682100, guid: 16a1a561ade1348408f50152ef3e082f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1384427471251914949, guid: 16a1a561ade1348408f50152ef3e082f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4778,6 +4786,10 @@ PrefabInstance:
     - target: {fileID: 4579405219887404975, guid: 16a1a561ade1348408f50152ef3e082f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5032471560340827674, guid: 16a1a561ade1348408f50152ef3e082f, type: 3}
+      propertyPath: m_Name
+      value: GameBeatenText
       objectReference: {fileID: 0}
     - target: {fileID: 5389007268604353634, guid: 16a1a561ade1348408f50152ef3e082f, type: 3}
       propertyPath: m_AnchorMax.y
